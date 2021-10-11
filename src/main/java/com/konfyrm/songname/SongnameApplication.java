@@ -1,0 +1,14 @@
+package com.konfyrm.songname;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SongnameApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SongnameApplication.class, args);
+
+	}
+
+}
