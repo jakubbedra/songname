@@ -1,24 +1,45 @@
 package com.konfyrm.songname.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.List;
 
 public class Author implements Serializable {
 
-    private String uuid;
+    private UUID uuid;
     private String name;
+    private List<Song> songs;
 
     public Author(String name) {
-        this.uuid = UUID.randomUUID().toString();
+        this.uuid = UUID.randomUUID();
         this.name = name;
+        this.songs = new ArrayList<>();
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public String getAuthor() {
+    public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{ uuid: " + uuid + "; name: " + name + "; }";
     }
 
 }

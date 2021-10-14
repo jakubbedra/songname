@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Temporary class for the sake of first lab,
@@ -15,37 +16,24 @@ import java.util.List;
 @Component
 public class FakeDatabase {
 
-    private List<Song> songsDb;
-    private List<Author> authorsDb;
+    private List<Song> songs;
+    private List<Author> authors;
 
     public FakeDatabase() {
-        this.songsDb = new LinkedList<>();
-        this.authorsDb = new LinkedList<>();
+        this.songs = new LinkedList<>();
+        this.authors = new LinkedList<>();
     }
 
-    /**
-     * Hardcodes the data...
-     */
-    @PostConstruct
-    private void fillStorage() {
-        Author author1 = new Author("Alberto");
-        Author author2 = new Author("Malik Montana");
-        authorsDb.add(author1);
-        authorsDb.add(author2);
-        songsDb.add(new Song("Dwutakt", List.of(author1)));
-        songsDb.add(new Song("Who you mam", List.of(author2)));
-        songsDb.add(new Song("Ołów", List.of(author2, author1)));
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public List<Author> getAllAuthors() {
-        return authorsDb;
+    public List<Song> getSongs() {
+        return songs;
     }
 
-    /*
-        TODO: migrate String uuid to long id later on
-     */
-    public Author getAuthorById(String uuid) {
-        return authorsDb.stream()
+    public Author getAuthorById(UUID uuid) {
+        return authors.stream()
                 .filter(author -> author.getUuid().equals(uuid))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
@@ -53,23 +41,16 @@ public class FakeDatabase {
     }
 
     public void addNewAuthor(Author author) {
-        authorsDb.add(author);
+        authors.add(author);
     }
 
-    public void removeAuthorById(String uuid) {
+    public void removeAuthorById(UUID uuid) {
         Author original = getAuthorById(uuid);
-        authorsDb.remove(original);             //does it work???
+        authors.remove(original);             //does it work???
     }
 
-    public List<Song> getAllSongs() {
-        return songsDb;
-    }
-
-    /*
-         TODO: as stated above, will probably be good to migrate the id
-     */
-    public Song getSongById(String uuid) {
-        return songsDb.stream()
+    public Song getSongById(UUID uuid) {
+        return songs.stream()
                 .filter(song -> song.getUuid().equals(uuid))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(
@@ -77,11 +58,12 @@ public class FakeDatabase {
     }
 
     public void addNewSong(Song song) {
-        songsDb.add(song);
+        songs.add(song);
     }
 
-    public void removeSongById(String uuid) {
+    public void removeSongById(UUID uuid) {
         Song original = getSongById(uuid);
+        songs.remove(original);
     }
 
 }

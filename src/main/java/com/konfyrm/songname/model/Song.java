@@ -1,24 +1,26 @@
 package com.konfyrm.songname.model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 public class Song implements Serializable {
 
-    private String uuid;
+    private UUID uuid;
     private String title;
-    private List<Author> authors;
-    private byte[] file; //might migrate byte[] to another type
+    /*
+        TODO: Single author just for the sake of the lab, replace with N:N relationship later on
+     */
+    private Author author;
+    private String filePath;
 
-    public Song(String title, List<Author> authors) {
-        this.uuid = UUID.randomUUID().toString();
+    public Song(String title, Author author) {
+        this.uuid = UUID.randomUUID();
         this.title = title;
-        this.authors = authors;
-        this.file = null; //tbi
+        this.author = author;
+        this.filePath = null; //tbi
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
@@ -26,12 +28,25 @@ public class Song implements Serializable {
         return title;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
+    public Author getAuthor() {
+        return author;
     }
 
-    public byte[] getFile() {
-        return file;
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{ uuid: " + uuid + "; title: " + title + "; author: " + author.getName() + ";}";
     }
 
 }
