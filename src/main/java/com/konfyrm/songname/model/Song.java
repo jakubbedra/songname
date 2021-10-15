@@ -1,6 +1,8 @@
 package com.konfyrm.songname.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Song implements Serializable {
@@ -12,11 +14,16 @@ public class Song implements Serializable {
      */
     private Author author;
     private String filePath;
+    /**
+     * To be implemented in a non-lab release :)
+     */
+    private List<String> featuredArtists;
 
     public Song(String title, Author author) {
         this.uuid = UUID.randomUUID();
         this.title = title;
         this.author = author;
+        this.featuredArtists = new ArrayList<>();
         this.filePath = null; //tbi
     }
 

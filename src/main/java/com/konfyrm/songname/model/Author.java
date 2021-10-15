@@ -42,4 +42,16 @@ public class Author implements Serializable {
         return "Author{ uuid: " + uuid + "; name: " + name + "; }";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o == this){
+            return true;
+        } else if(!(o instanceof Author)){
+            return false;
+        } else {
+            Author other = (Author)o;
+            return other.name.equals(this.name) && other.uuid.equals(this.uuid);
+        }
+    }
+
 }
