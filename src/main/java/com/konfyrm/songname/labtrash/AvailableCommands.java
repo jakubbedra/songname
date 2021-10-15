@@ -18,4 +18,5 @@ public enum AvailableCommands {
     AvailableCommands(String label) {
         this.label = label;
     }
+
 }
