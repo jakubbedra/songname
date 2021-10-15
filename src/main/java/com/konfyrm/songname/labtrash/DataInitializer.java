@@ -20,7 +20,6 @@ public class DataInitializer {
             FakeDatabase database
     ) {
         this.database = database;
-        System.out.println("\ndupa\n");
     }
 
     public void initData() {

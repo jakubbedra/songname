@@ -31,7 +31,7 @@ public class SongsRepository {
     }
 
     public void removeSongById(UUID uuid) {
-        database.removeAuthorById(uuid);
+        database.removeSongById(uuid);
     }
 
 }
