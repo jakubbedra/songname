@@ -4,9 +4,11 @@ import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.storage.FakeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+@Component
 public class DataInitializer {
 
     private final FakeDatabase database;
@@ -18,19 +20,20 @@ public class DataInitializer {
         this.database = database;
     }
 
-    /**
-     * Hardcodes sample data into the fake database
-     */
     @PostConstruct
     public void initData() {
-        Author author1 = new Author("Alberto");
-        Author author2 = new Author("Malik Montana");
-        database.addNewAuthor(author1);
-        database.addNewAuthor(author2);
-        database.addNewSong(new Song("Dwutakt", author1));
-        database.addNewSong(new Song("Strzał", author1));
-        database.addNewSong(new Song("Who you mam", author2));
-        database.addNewSong(new Song("6.3 AMG", author2));
+        Author malik = new Author("Malik Montana");
+        Author alberto = new Author("Alberto");
+        database.addNewAuthor(malik);
+        database.addNewAuthor(alberto);
+        Song song1 = new Song("Who you mam", malik);
+        Song song2 = new Song("6.3 AMG", malik);
+        Song song3 = new Song("Dwutakt", alberto);
+        Song song4 = new Song("Strzał", alberto);
+        database.addNewSong(song1);
+        database.addNewSong(song2);
+        database.addNewSong(song3);
+        database.addNewSong(song4);
     }
 
 }
