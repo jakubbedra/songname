@@ -13,10 +13,19 @@ public enum AvailableCommands {
     SONGS_FIND("songs -find"),
     SONGS_REMOVE("songs -remove");
 
-    private final String label;
+    public final String label;
 
-    AvailableCommands(String label) {
+    private AvailableCommands(String label) {
         this.label = label;
+    }
+
+    public static AvailableCommands valueOfLabel(String label) {
+        for (AvailableCommands cmd : values()) {
+            if (cmd.label.equals(label)) {
+                return cmd;
+            }
+        }
+        return null;
     }
 
 }

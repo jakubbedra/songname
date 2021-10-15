@@ -3,10 +3,12 @@ package com.konfyrm.songname.service;
 import com.konfyrm.songname.dao.AuthorsRepository;
 import com.konfyrm.songname.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class AuthorsService {
 
     private final AuthorsRepository authorsRepository;
