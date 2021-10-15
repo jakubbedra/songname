@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -22,15 +23,19 @@ public class CLIRunner {
 
     private final DataInitializer dataInitializer;
 
+    private final ApplicationContext applicationContext;
+
     private final SongsService songsService;
     private final AuthorsService authorsService;
 
     @Autowired
     public CLIRunner(
+            ApplicationContext applicationContext,
             DataInitializer dataInitializer,
             SongsService songsService,
             AuthorsService authorsService
     ) {
+        this.applicationContext = applicationContext;
         this.dataInitializer = dataInitializer;
         this.songsService = songsService;
         this.authorsService = authorsService;
@@ -40,7 +45,45 @@ public class CLIRunner {
     private void runCli() {
         dataInitializer.initData();
         Scanner scanner = new Scanner(System.in);
-        createCLIThread(scanner).run();
+        while (true) {
+            AvailableCommands cmd = AvailableCommands.valueOfLabel(scanner.nextLine());
+            if (cmd == null) {
+                System.out.println("unknown command, type \"help\" for the list of available commands");
+                continue;
+            }
+            switch (cmd) {
+                case HELP:
+                    help();
+                    break;
+                case SHUTDOWN:
+                    shutdown();
+                    break;
+                case AUTHORS_ADD:
+                    addAuthor(scanner);
+                    break;
+                case AUTHORS_ALL:
+                    allAuthors();
+                    break;
+                case AUTHORS_FIND:
+                    findAuthor(scanner);
+                    break;
+                case AUTHORS_REMOVE:
+                    removeAuthor(scanner);
+                    break;
+                case SONGS_ADD:
+                    addSong(scanner);
+                    break;
+                case SONGS_ALL:
+                    allSongs();
+                    break;
+                case SONGS_FIND:
+                    findSong(scanner);
+                    break;
+                case SONGS_REMOVE:
+                    removeSong(scanner);
+                    break;
+            }
+        }
     }
 
     private void removeSong(Scanner scanner) {
@@ -96,9 +139,8 @@ public class CLIRunner {
      * Shuts down the app
      */
     private void shutdown() {
-        ConfigurableApplicationContext ctx = new SpringApplicationBuilder(SongnameApplication.class)
-                .web(WebApplicationType.NONE).run();
-        SpringApplication.exit(ctx, () -> 0);
+        SpringApplication.exit(applicationContext, () -> 0);
+        System.exit(0);
     }
 
     /**
@@ -115,51 +157,6 @@ public class CLIRunner {
         System.out.println(AvailableCommands.SONGS_ALL.label + "\n-> prints all songs currently in storage\n");
         System.out.println(AvailableCommands.SONGS_FIND.label + "\n[uuid]\n-> finds the song with given uuid\n");
         System.out.println(AvailableCommands.SONGS_REMOVE.label + "\n[uuid]\n-> removes the song with given uuid\n");
-    }
-
-    private Thread createCLIThread(Scanner scanner) {
-        return new Thread(() -> {
-            while (true) {
-                AvailableCommands cmd = AvailableCommands.valueOfLabel(scanner.nextLine());
-                if (cmd == null) {
-                    System.out.println("unknown command, type \"help\" for the list of available commands");
-                    return;
-                    //continue;
-                }
-                switch (cmd) {
-                    case HELP:
-                        help();
-                        break;
-                    case SHUTDOWN:
-                        shutdown();
-                        break;
-                    case AUTHORS_ADD:
-                        addAuthor(scanner);
-                        break;
-                    case AUTHORS_ALL:
-                        allAuthors();
-                        break;
-                    case AUTHORS_FIND:
-                        findAuthor(scanner);
-                        break;
-                    case AUTHORS_REMOVE:
-                        removeAuthor(scanner);
-                        break;
-                    case SONGS_ADD:
-                        addSong(scanner);
-                        break;
-                    case SONGS_ALL:
-                        allSongs();
-                        break;
-                    case SONGS_FIND:
-                        findSong(scanner);
-                        break;
-                    case SONGS_REMOVE:
-                        removeSong(scanner);
-                        break;
-                }
-            }
-        });
     }
 
 }

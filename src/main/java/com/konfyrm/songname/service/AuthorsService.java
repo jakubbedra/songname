@@ -32,6 +32,12 @@ public class AuthorsService {
         authorsRepository.addNewAuthor(author);
     }
 
+    /**
+     * Removes the author with the given uuid along with all of his songs
+     * (does not apply to featurings on other authors' songs).
+     *
+     * @param uuid A {@code UUID} of the author.
+     */
     public void removeAuthorById(UUID uuid) {
         authorsRepository.removeAuthorById(uuid);
     }

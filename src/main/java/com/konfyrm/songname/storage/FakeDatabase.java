@@ -46,7 +46,7 @@ public class FakeDatabase {
 
     public void removeAuthorById(UUID uuid) {
         Author original = getAuthorById(uuid);
-        authors.remove(original);             //does it work???
+        authors.remove(original);
     }
 
     public Song getSongById(UUID uuid) {
