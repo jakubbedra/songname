@@ -4,46 +4,22 @@ import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.storage.FakeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
-public class AuthorsRepository {
+public interface AuthorsRepository extends CrudRepository<Author, UUID> {
+/*
+    @Query("select * from Author")
+    List<Author> getAllAuthors();
 
-    private FakeDatabase database;
-
-    @Autowired
-    public AuthorsRepository(FakeDatabase database) {
-        this.database = database;
-    }
-
-    public List<Author> getAllAuthors() {
-        return database.getAuthors();
-    }
-
-    public Author getAuthorById(UUID uuid) {
-        return database.getAuthorById(uuid);
-    }
-
-    public void addNewAuthor(Author author) {
-        database.addNewAuthor(author);
-    }
-
-    /**
-     * Removes the author with the given uuid along with all of his songs
-     * (does not apply to featurings on other authors' songs).
-     *
-     * @param uuid A {@code UUID} of the author.
-     */
-    public void removeAuthorById(UUID uuid) {
-        List<Song> authorsSongs = database.getSongs().stream()
-                .filter(s -> s.getAuthor().getUuid().equals(uuid))
-                .collect(Collectors.toList());
-        authorsSongs.stream().forEach(s -> database.removeSongById(s.getUuid()));
-        database.removeAuthorById(uuid);
-    }
-
+    @Query("select a from Author where a.uuid = uuid")
+    Author getAuthorById(@Param("uuid") UUID uuid);
+    */
 }

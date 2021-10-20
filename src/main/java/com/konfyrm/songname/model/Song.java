@@ -1,29 +1,26 @@
 package com.konfyrm.songname.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "songs")
 public class Song implements Serializable {
 
+    @Id
     private UUID uuid;
     private String title;
-    /*
-        TODO: Single author just for the sake of the lab, replace with N:N relationship later on
-     */
+    
+    @ManyToOne
+    @JoinColumn(name = "author")
     private Author author;
     private String filePath;
-    /**
-     * To be implemented in a non-lab release :)
-     */
-    private List<String> featuredArtists;
 
     public Song(String title, Author author) {
         this.uuid = UUID.randomUUID();
         this.title = title;
         this.author = author;
-        this.featuredArtists = new ArrayList<>();
         this.filePath = null; //tbi
     }
 

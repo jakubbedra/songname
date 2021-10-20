@@ -5,6 +5,8 @@ import com.konfyrm.songname.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,15 +23,18 @@ public class AuthorsService {
     }
 
     public List<Author> getAllAuthors() {
-        return authorsRepository.getAllAuthors();
+        return new LinkedList<>((Collection<Author>) authorsRepository.findAll());
+        //return authorsRepository.getAllAuthors();
     }
 
     public Author getAuthorById(UUID uuid) {
-        return authorsRepository.getAuthorById(uuid);
+        return (Author) authorsRepository.findAllById(List.of(uuid));
+        //return authorsRepository.getAuthorById(uuid);
     }
 
     public void addNewAuthor(Author author) {
-        authorsRepository.addNewAuthor(author);
+        authorsRepository.save(author);
+        //authorsRepository.addNewAuthor(author);
     }
 
     /**
@@ -39,7 +44,8 @@ public class AuthorsService {
      * @param uuid A {@code UUID} of the author.
      */
     public void removeAuthorById(UUID uuid) {
-        authorsRepository.removeAuthorById(uuid);
+        authorsRepository.deleteById(uuid);
+//        authorsRepository.removeAuthorById(uuid);
     }
 
 }

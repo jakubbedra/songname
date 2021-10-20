@@ -1,15 +1,32 @@
 package com.konfyrm.songname.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
 
+@Entity
+@Table(name = "authors")
 public class Author implements Serializable {
 
+    @Id
     private UUID uuid;
+
+    @Column(name = "author_name")
     private String name;
+
+    @OneToMany
     private List<Song> songs;
+
+    public Author() {
+    }
+
+    public Author(UUID uuid, String name, List<Song> songs) {
+        this.uuid = uuid;
+        this.name = name;
+        this.songs = songs;
+    }
 
     public Author(String name) {
         this.uuid = UUID.randomUUID();
@@ -44,12 +61,12 @@ public class Author implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o == this){
+        if (o == this) {
             return true;
-        } else if(!(o instanceof Author)){
+        } else if (!(o instanceof Author)) {
             return false;
         } else {
-            Author other = (Author)o;
+            Author other = (Author) o;
             return other.name.equals(this.name) && other.uuid.equals(this.uuid);
         }
     }
