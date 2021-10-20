@@ -11,11 +11,14 @@ public class Song implements Serializable {
     @Id
     private UUID uuid;
     private String title;
-    
+
     @ManyToOne
     @JoinColumn(name = "author")
     private Author author;
     private String filePath;
+
+    public Song() {
+    }
 
     public Song(String title, Author author) {
         this.uuid = UUID.randomUUID();

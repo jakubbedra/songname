@@ -16,24 +16,26 @@ public class SongsService {
     @Autowired
     public SongsService(
             SongsRepository songsRepository
-    ){
+    ) {
         this.songsRepository = songsRepository;
     }
 
     public List<Song> getAllSongs() {
-        return songsRepository.getAllSongs();
+        return (List<Song>) songsRepository.findAll();
     }
 
     public Song getSongById(UUID uuid) {
-        return songsRepository.getSongById(uuid);
+        return songsRepository.findById(uuid).orElseThrow(() ->
+                new IllegalArgumentException("No song was found with the uuid: " + uuid)
+        );
     }
 
     public void addNewSong(Song song) {
-        songsRepository.addNewSong(song);
+        songsRepository.save(song);
     }
 
     public void removeSongById(UUID uuid) {
-        songsRepository.removeSongById(uuid);
+        songsRepository.deleteById(uuid);
     }
 
 }

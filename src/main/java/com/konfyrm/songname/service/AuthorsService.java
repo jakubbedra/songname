@@ -28,7 +28,9 @@ public class AuthorsService {
     }
 
     public Author getAuthorById(UUID uuid) {
-        return (Author) authorsRepository.findAllById(List.of(uuid));
+        return authorsRepository.findById(uuid).orElseThrow(() ->
+                new IllegalArgumentException("No author was found with the uuid: " + uuid)
+        );
         //return authorsRepository.getAuthorById(uuid);
     }
 
