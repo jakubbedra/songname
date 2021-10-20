@@ -1,16 +1,12 @@
 package com.konfyrm.songname.labtrash;
 
-import com.konfyrm.songname.SongnameApplication;
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.service.AuthorsService;
 import com.konfyrm.songname.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
