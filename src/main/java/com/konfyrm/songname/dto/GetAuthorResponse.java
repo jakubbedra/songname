@@ -4,12 +4,12 @@ import com.konfyrm.songname.model.Author;
 
 import java.util.UUID;
 
-public class CreateAuthorRequest {
+public class GetAuthorResponse {
 
     private UUID uuid;
     private String name;
 
-    public CreateAuthorRequest(Author author) {
+    public GetAuthorResponse(Author author) {
         this.uuid = author.getUuid();
         this.name = author.getName();
     }

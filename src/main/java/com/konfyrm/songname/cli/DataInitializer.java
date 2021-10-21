@@ -1,16 +1,12 @@
-package com.konfyrm.songname.labtrash;
+package com.konfyrm.songname.cli;
 
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.service.AuthorsService;
 import com.konfyrm.songname.service.SongsService;
 import com.konfyrm.songname.storage.FakeDatabase;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class DataInitializer {

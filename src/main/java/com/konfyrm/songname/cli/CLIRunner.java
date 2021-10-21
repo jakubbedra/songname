@@ -1,4 +1,4 @@
-package com.konfyrm.songname.labtrash;
+package com.konfyrm.songname.cli;
 
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
@@ -101,7 +101,7 @@ public class CLIRunner {
     private void addSong(Scanner scanner) {
         String title = scanner.nextLine();
         UUID authorUuid = UUID.fromString(scanner.nextLine());
-        Author author = authorsService.getAuthorById(authorUuid);
+        Author author = authorsService.getAuthorById(authorUuid).get();
         songsService.addNewSong(new Song(title, author));
     }
 
@@ -112,7 +112,7 @@ public class CLIRunner {
 
     private void findAuthor(Scanner scanner) {
         UUID uuid = UUID.fromString(scanner.nextLine());
-        Author author = authorsService.getAuthorById(uuid);
+        Author author = authorsService.getAuthorById(uuid).get();
         System.out.println(author);
     }
 

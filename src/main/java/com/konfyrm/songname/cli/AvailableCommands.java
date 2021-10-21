@@ -1,4 +1,4 @@
-package com.konfyrm.songname.labtrash;
+package com.konfyrm.songname.cli;
 
 public enum AvailableCommands {
 

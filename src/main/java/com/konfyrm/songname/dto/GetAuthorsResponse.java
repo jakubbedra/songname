@@ -2,10 +2,8 @@ package com.konfyrm.songname.dto;
 
 import com.konfyrm.songname.model.Author;
 
-import java.util.Collection;
 import java.util.UUID;
 import java.util.List;
-import java.util.function.Function;
 
 public class GetAuthorsResponse {
 
@@ -39,8 +37,14 @@ public class GetAuthorsResponse {
 
     private List<AuthorGet> authors;
 
-    public static Function<Collection<Author>, GetAuthorsResponse> entityToDtoMapper() {
+    public GetAuthorsResponse(List<Author> authors) {
+        authors.forEach( a ->
+            this.authors.add(new AuthorGet(a.getUuid(), a.getName()))
+        );
+    }
 
+    public List<AuthorGet> getAuthors() {
+        return authors;
     }
 
 }
