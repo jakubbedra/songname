@@ -3,6 +3,7 @@ package com.konfyrm.songname.dto;
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,7 @@ public class GetSongsResponse {
     private List<SongGet> songs;
 
     public GetSongsResponse(List<Song> songs) {
+        songs = new LinkedList<>();
         songs.forEach(s ->
                 this.songs.add(new SongGet(s.getUuid(), s.getTitle(), s.getAuthor().getName(), s.getFilePath()))
         );

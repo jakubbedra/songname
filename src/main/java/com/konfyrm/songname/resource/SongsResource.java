@@ -19,8 +19,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 
+@RequestMapping("/api/songs")
 @RestController
-@RequestMapping("api/songs")
 public class SongsResource {
 
     private final SongsService songsService;
@@ -41,9 +41,9 @@ public class SongsResource {
         return ResponseEntity.ok(new GetSongsResponse(songs));
     }
 
-    @GetMapping("{uuid}")
-    public ResponseEntity<GetSongResponse> getSong(@PathVariable("uuid") UUID uuid) {
-        Optional<Song> song = songsService.getSongById(uuid);
+    @GetMapping("/{uuid}")
+    public ResponseEntity<GetSongResponse> getSong(@PathVariable("uuid") String uuid) {
+        Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
         return song.map(value -> ResponseEntity.ok(new GetSongResponse(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -60,9 +60,9 @@ public class SongsResource {
         }
     }
 
-    @DeleteMapping("{uuid}")
-    public ResponseEntity<Void> deleteSong(@PathVariable UUID uuid) {
-        Optional<Song> song = songsService.getSongById(uuid);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Void> deleteSong(@PathVariable("uuid") String uuid) {
+        Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
         if (song.isPresent()) {
             songsService.removeSongById(song.get().getUuid());
             return ResponseEntity.accepted().build();
@@ -71,9 +71,9 @@ public class SongsResource {
         }
     }
 
-    @PutMapping("{uuid}")
-    public ResponseEntity<Void> updateSong(@RequestBody UpdateSongRequest request, @PathVariable UUID uuid) {
-        Optional<Song> song = songsService.getSongById(uuid);
+    @PutMapping("/{uuid}")
+    public ResponseEntity<Void> updateSong(@RequestBody UpdateSongRequest request, @PathVariable("uuid") String uuid) {
+        Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
         //todo: check if necessary
         Optional<Author> author = authorsService.getAuthorById(request.getAuthorUuid());
         if (song.isPresent() && author.isPresent()) {

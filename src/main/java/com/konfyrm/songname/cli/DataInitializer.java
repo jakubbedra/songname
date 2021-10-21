@@ -4,24 +4,20 @@ import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.service.AuthorsService;
 import com.konfyrm.songname.service.SongsService;
-import com.konfyrm.songname.storage.FakeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataInitializer {
 
-    private final FakeDatabase database;
     private final SongsService songsService;
     private final AuthorsService authorsService;
 
     @Autowired
     public DataInitializer(
-            FakeDatabase database,
             SongsService songsService,
             AuthorsService authorsService
     ) {
-        this.database = database;
         this.songsService = songsService;
         this.authorsService = authorsService;
     }

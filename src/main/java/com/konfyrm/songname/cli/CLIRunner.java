@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
-
+/*
 @Component
 public class CLIRunner {
 
@@ -89,7 +89,7 @@ public class CLIRunner {
 
     private void findSong(Scanner scanner) {
         UUID uuid = UUID.fromString(scanner.nextLine());
-        Song song = songsService.getSongById(uuid);
+        Song song = songsService.getSongById(uuid).get();
         System.out.println(song);
     }
 
@@ -121,27 +121,16 @@ public class CLIRunner {
         authors.stream().forEach(System.out::println);
     }
 
-    /**
-     * Adds a new author to the storage
-     *
-     * @param scanner A {@code Scanner} for scanning parameters
-     */
     private void addAuthor(Scanner scanner) {
         String name = scanner.nextLine();
         authorsService.addNewAuthor(new Author(name));
     }
 
-    /**
-     * Shuts down the app
-     */
     private void shutdown() {
         SpringApplication.exit(applicationContext, () -> 0);
         System.exit(0);
     }
 
-    /**
-     * Prints info about available commands
-     */
     private void help() {
         System.out.println(AvailableCommands.HELP.label + "\n-> prints the info about available commands\n");
         System.out.println(AvailableCommands.SHUTDOWN.label + "\n-> closes the application\n");
@@ -156,3 +145,4 @@ public class CLIRunner {
     }
 
 }
+*/
