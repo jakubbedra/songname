@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -24,10 +25,8 @@ public class SongsService {
         return (List<Song>) songsRepository.findAll();
     }
 
-    public Song getSongById(UUID uuid) {
-        return songsRepository.findById(uuid).orElseThrow(() ->
-                new IllegalArgumentException("No song was found with the uuid: " + uuid)
-        );
+    public Optional<Song> getSongById(UUID uuid) {
+        return songsRepository.findById(uuid);
     }
 
     public void addNewSong(Song song) {
@@ -36,6 +35,11 @@ public class SongsService {
 
     public void removeSongById(UUID uuid) {
         songsRepository.deleteById(uuid);
+    }
+
+    public void updateSong(Song song) {
+        songsRepository.deleteById(song.getUuid());
+        songsRepository.save(song);
     }
 
 }

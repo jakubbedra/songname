@@ -12,10 +12,10 @@ public class GetSongsResponse {
 
         private UUID uuid;
         private String title;
-        private Author author;
+        private String author;
         private String filePath;
 
-        public SongGet(UUID uuid, String title, Author author, String filePath) {
+        public SongGet(UUID uuid, String title, String author, String filePath) {
             this.uuid = uuid;
             this.title = title;
             this.author = author;
@@ -31,7 +31,7 @@ public class GetSongsResponse {
             return title;
         }
 
-        public Author getAuthor() {
+        public String getAuthor() {
             return author;
         }
 
@@ -43,16 +43,17 @@ public class GetSongsResponse {
             this.title = title;
         }
 
-        public void setAuthor(Author author) {
+        public void setAuthor(String author) {
             this.author = author;
         }
-
     }
 
     private List<SongGet> songs;
 
     public GetSongsResponse(List<Song> songs) {
-        songs.forEach(s -> songs.add(new Song(s.getUuid())));
+        songs.forEach(s ->
+                this.songs.add(new SongGet(s.getUuid(), s.getTitle(), s.getAuthor().getName(), s.getFilePath()))
+        );
     }
 
 }

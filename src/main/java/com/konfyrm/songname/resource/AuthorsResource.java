@@ -1,6 +1,6 @@
 package com.konfyrm.songname.resource;
 
-import com.konfyrm.songname.cli.UpdateAuthorRequest;
+import com.konfyrm.songname.dto.UpdateAuthorRequest;
 import com.konfyrm.songname.dto.CreateAuthorRequest;
 import com.konfyrm.songname.dto.GetAuthorResponse;
 import com.konfyrm.songname.dto.GetAuthorsResponse;
@@ -55,9 +55,9 @@ public class AuthorsResource {
 
     @PostMapping
     public ResponseEntity<Void> createAuthor(@RequestBody CreateAuthorRequest request, UriComponentsBuilder builder) {
-        Author author = new Author(request.getUuid(), request.getName(), Collections.emptyList());
+        Author author = new Author(request.getName());
         authorsService.addNewAuthor(author);
-        return ResponseEntity.created(builder.pathSegment("api", "authors", "{id}")
+        return ResponseEntity.created(builder.pathSegment("api", "authors", "{uuid}")
                 .buildAndExpand(author.getUuid()).toUri()).build();
     }
 

@@ -1,4 +1,4 @@
-package com.konfyrm.songname.cli;
+package com.konfyrm.songname.dto;
 
 import com.konfyrm.songname.model.Author;
 

@@ -10,7 +10,6 @@ public class CreateAuthorRequest {
     private String name;
 
     public CreateAuthorRequest(Author author) {
-        this.uuid = author.getUuid();
         this.name = author.getName();
     }
 
