@@ -33,14 +33,13 @@ public class AuthorsResource {
             AuthorsService authorsService
     ) {
         this.dataInitializer = dataInitializer;
-        dataInitializer.initData(); //todo!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        dataInitializer.initData(); //todo better!!!!!!!!!!!!!!
         this.authorsService = authorsService;
     }
 
     @GetMapping
     public ResponseEntity<GetAuthorsResponse> getAuthors() {
         List<Author> all = authorsService.getAllAuthors();
-       //todo all.stream().forEach(System.out::println);
         return ResponseEntity.ok(new GetAuthorsResponse(all));
     }
 

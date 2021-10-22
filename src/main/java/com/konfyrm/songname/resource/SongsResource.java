@@ -43,7 +43,6 @@ public class SongsResource {
     @GetMapping
     public ResponseEntity<GetSongsResponse> getSongs() {
         List<Song> songs = songsService.getAllSongs();
-        songs.forEach(System.out::println);
         return ResponseEntity.ok(new GetSongsResponse(songs));
     }
 
@@ -81,7 +80,6 @@ public class SongsResource {
     @PutMapping("/{uuid}")
     public ResponseEntity<Void> updateSong(@RequestBody UpdateSongRequest request, @PathVariable("uuid") String uuid) {
         Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
-        //todo: check if necessary
         Optional<Author> author = authorsService.getAuthorById(request.getAuthorUuid());
         if (song.isPresent() && author.isPresent()) {
             song.get().setAuthor(author.get());
