@@ -52,10 +52,14 @@ public class GetSongsResponse {
     private List<SongGet> songs;
 
     public GetSongsResponse(List<Song> songs) {
-        songs = new LinkedList<>();
+        this.songs = new LinkedList<>();
         songs.forEach(s ->
                 this.songs.add(new SongGet(s.getUuid(), s.getTitle(), s.getAuthor().getName(), s.getFilePath()))
         );
+    }
+
+    public List<SongGet> getSongs() {
+        return songs;
     }
 
 }

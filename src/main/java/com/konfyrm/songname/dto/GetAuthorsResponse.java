@@ -39,7 +39,7 @@ public class GetAuthorsResponse {
     private List<AuthorGet> authors;
 
     public GetAuthorsResponse(List<Author> authors) {
-        authors = new LinkedList<>();
+        this.authors = new LinkedList<>();
         authors.forEach( a ->
             this.authors.add(new AuthorGet(a.getUuid(), a.getName()))
         );

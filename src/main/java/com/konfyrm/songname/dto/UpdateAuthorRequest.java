@@ -2,6 +2,8 @@ package com.konfyrm.songname.dto;
 
 import com.konfyrm.songname.model.Author;
 
+import java.util.UUID;
+
 public class UpdateAuthorRequest {
 
     private String name;

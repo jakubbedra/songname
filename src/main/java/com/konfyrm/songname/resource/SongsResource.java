@@ -35,9 +35,15 @@ public class SongsResource {
         this.authorsService = authorsService;
     }
 
+    @GetMapping("/dupa")
+    public ResponseEntity<String> dupa(){
+        return ResponseEntity.ok("dupa");
+    }
+
     @GetMapping
     public ResponseEntity<GetSongsResponse> getSongs() {
         List<Song> songs = songsService.getAllSongs();
+        songs.forEach(System.out::println);
         return ResponseEntity.ok(new GetSongsResponse(songs));
     }
 
@@ -53,6 +59,7 @@ public class SongsResource {
         Optional<Author> author = authorsService.getAuthorById(request.getAuthorUuid());
         if (author.isPresent()) {
             Song song = new Song(request.getTitle(), author.get());
+            songsService.addNewSong(song);
             return ResponseEntity.created(builder.pathSegment("api", "songs", "{uuid}")
                     .buildAndExpand(song.getUuid()).toUri()).build();
         } else {
@@ -79,6 +86,7 @@ public class SongsResource {
         if (song.isPresent() && author.isPresent()) {
             song.get().setAuthor(author.get());
             song.get().setTitle(request.getTitle());
+            songsService.updateSong(song.get());
             return ResponseEntity.accepted().build();
         } else {
             return ResponseEntity.notFound().build();
