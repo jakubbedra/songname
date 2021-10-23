@@ -1,12 +1,11 @@
 package com.konfyrm.songname.resource;
 
 import com.konfyrm.songname.cli.DataInitializer;
-import com.konfyrm.songname.dto.UpdateAuthorRequest;
-import com.konfyrm.songname.dto.CreateAuthorRequest;
-import com.konfyrm.songname.dto.GetAuthorResponse;
-import com.konfyrm.songname.dto.GetAuthorsResponse;
+import com.konfyrm.songname.dto.*;
 import com.konfyrm.songname.model.Author;
+import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.service.AuthorsService;
+import com.konfyrm.songname.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,15 +25,18 @@ public class AuthorsResource {
     private final DataInitializer dataInitializer;
 
     private final AuthorsService authorsService;
+    private final SongsService songsService;
 
     @Autowired
     public AuthorsResource(
             DataInitializer dataInitializer,
-            AuthorsService authorsService
+            AuthorsService authorsService,
+            SongsService songsService
     ) {
         this.dataInitializer = dataInitializer;
         dataInitializer.initData(); //todo better!!!!!!!!!!!!!!
         this.authorsService = authorsService;
+        this.songsService = songsService;
     }
 
     @GetMapping
@@ -48,6 +50,12 @@ public class AuthorsResource {
         Optional<Author> author = authorsService.getAuthorById(UUID.fromString(uuid));
         return author.map(value -> ResponseEntity.ok(new GetAuthorResponse(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{uuid}/songs")
+    public ResponseEntity<GetSongsResponse> getAuthorSongs(@PathVariable("uuid") String uuid) {
+        List<Song> songs = songsService.getAuthorSongs(UUID.fromString(uuid));
+        return ResponseEntity.ok(new GetSongsResponse(songs));
     }
 
     @PostMapping

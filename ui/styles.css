@@ -1,0 +1,105 @@
+body {
+    background-color: #444444;
+}
+
+.container {
+    margin: 50px auto;
+    width: 80%;
+}
+
+.header {
+    text-align: left;
+    background: #222222;
+    color: white;
+}
+
+.header h1 {
+    margin: 0;
+    padding: 10px;
+}
+
+.navigation-bar {
+    background-color: #222222;
+}
+
+.navigation-bar ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-bar li {
+    display: inline-block;
+}
+
+.navigation-bar a {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.navigation-bar a:hover {
+    background-color: #330099;
+    color: white;
+}
+
+.main-section {
+    padding: 10px;
+    background-color: #222222;
+}
+
+.footer {
+    font-size: small;
+    text-align: center;
+    color: white;
+}
+
+.text--justified {
+    text-align: justify;
+}
+
+.ui-control {
+    border-color: black;
+    background-color: #222222;
+    border-width: 1px;
+    padding: 1px;
+    font-size: 16px;
+}
+
+.ui-control:focus {
+    outline: none;
+}
+
+.ui-button {
+    height: 24px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.ui-input {
+    height: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.data-table {
+    border-collapse: collapse;
+}
+
+.data-table td, .data-table th {
+    padding: 6px;
+}
+
+.data-table thead {
+    font-weight: bold;
+    background-color: #222222;
+    color: white;
+}
+
+.data-table tbody tr:hover {
+    background-color: #330099;
+}

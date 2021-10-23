@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class SongsService {
@@ -27,6 +28,13 @@ public class SongsService {
 
     public Optional<Song> getSongById(UUID uuid) {
         return songsRepository.findById(uuid);
+    }
+
+    public List<Song> getAuthorSongs(UUID authorUuid) {
+        List<Song> songs = (List<Song>) songsRepository.findAll();
+        return songs.stream()
+                .filter(s -> s.getAuthor().getUuid().equals(authorUuid))
+                .collect(Collectors.toList());
     }
 
     public void addNewSong(Song song) {
