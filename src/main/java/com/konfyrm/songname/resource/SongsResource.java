@@ -54,12 +54,15 @@ public class SongsResource {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Void> createSong(@RequestBody CreateSongRequest request, UriComponentsBuilder builder) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> createSong(@RequestPart("file") MultipartFile file,
+                                           @RequestPart("info") CreateSongRequest request,
+                                           UriComponentsBuilder builder) throws IOException {
         Optional<Author> author = authorsService.getAuthorById(request.getAuthorUuid());
         if (author.isPresent()) {
             Song song = new Song(request.getTitle(), author.get());
             songsService.addNewSong(song);
+            songsService.uploadFile(song.getUuid(), file.getInputStream());
             return ResponseEntity.created(builder.pathSegment("api", "songs", "{uuid}")
                     .buildAndExpand(song.getUuid()).toUri()).build();
         } else {
@@ -112,6 +115,7 @@ public class SongsResource {
     @PostMapping(value = "/{uuid}/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadSongFile(@RequestParam("songFile") MultipartFile file,
                                                @PathVariable("uuid") String uuid) throws IOException {
+        System.out.println(file.getName());
         Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
         if (song.isPresent()) {
             songsService.uploadFile(song.get().getUuid(), file.getInputStream());
@@ -124,7 +128,13 @@ public class SongsResource {
     @PutMapping(value = "/{uuid}/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> updateSongFile(@RequestParam("songFile") MultipartFile file,
                                                @PathVariable("uuid") String uuid) throws IOException {
-        return ResponseEntity.ok().build();
+        Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
+        if (song.isPresent()) {
+            songsService.updateFile(song.get().getUuid(), file.getInputStream());
+            return ResponseEntity.accepted().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private HttpHeaders createFileHeaders(String filename) {

@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="description" content="Simple song-guessing game."/>
-        <meta name="keywords" content="RPG"/>
-        <meta name="author" content="Jakub Bedra"/>
-        <title>Songname</title>
-        <link rel="stylesheet" href="../styles.css"/>
-        <link rel="stylesheet" href="author_view.css"/>
-        <script src="../script.js" defer="defer"></script>
-        <script type="module" src="author_view.js" defer="defer"></script>
-    </head>
-    <body>
-        <div class="container">
-            <header class="header">
-                <h1>Songname</h1>
-            </header>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Simple song-guessing game."/>
+    <meta name="keywords" content="RPG"/>
+    <meta name="author" content="Jakub Bedra"/>
+    <title>Songname</title>
+    <link rel="stylesheet" href="../styles.css"/>
+    <link rel="stylesheet" href="author_view.css"/>
+    <script src="../script.js" defer="defer"></script>
+    <script type="module" src="author_view.js" defer="defer"></script>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>Songname</h1>
+    </header>
 
-            <nav class="navigation-bar">
-                <ul>
-                    <li><a>dupa</a></li>
-                    <li><a>dupa</a></li>
-                    <li><a>dupa</a></li>
-                </ul>
-            </nav>
+    <nav class="navigation-bar">
+        <ul>
+            <li><a>dupa</a></li>
+            <li><a>dupa</a></li>
+            <li><a>dupa</a></li>
+        </ul>
+    </nav>
 
-            <section class="main-section">
-                <article class="text--justified">
-                    <header><h2 id="author-name" class="header">author-name</h2></header>
-                    <section>
-                        <h3 class="header">Details</h3>
-                        <div class="details-grid">
-                            <label for="uuid">UUID: </label><span id="uuid">uuid</span>
-                            <label for="name">Name: </label><span id="name">name</span>
-                        </div>
-                    </section>
-                    <section>
-                        <h3 class="header">Songs</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>uuid</th>
-                                    <th>title</th>
-                                    <th>play</th>
-                                    <th>edit</th>
-                                    <th>delete</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <tr>
-                                    <td>title</td>
-                                    <td><a href="#">view</a></td>
-                                    <td><a href="#">edit</a></td>
-                                    <td><a href="">play</a></td>
-                                    <td>
-                                        <button class="ui-button ui-control">delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </section>
-                </article>
+    <section class="main-section">
+        <article class="text--justified">
+            <header><h2 id="author-name" class="header">author-name</h2></header>
+            <section>
+                <h3 class="header">Details</h3>
+                <div class="details-grid">
+                    <label for="uuid">UUID: </label><span id="uuid">uuid</span>
+                    <label for="name">Name: </label><span id="name">name</span>
+                </div>
             </section>
+            <section>
+                <h3 class="header">Songs</h3>
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>uuid</th>
+                        <th>title</th>
+                        <th>play</th>
+                        <th>edit</th>
+                        <th>delete</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    <tr>
+                        <td>title</td>
+                        <td><a href="#">view</a></td>
+                        <td><a href="#">edit</a></td>
+                        <td><a href="">play</a></td>
+                        <td>
+                            <button class="ui-button ui-control">delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </article>
+        <article class="text--justified">
+            <header><h2 class="header">Add song</h2></header>
+            <form class="song__form" id="songForm">
+                <label for="title">Title: </label>
+                <input class="ui-control ui-input" id="title" name="title"/>
+                <label for="file">File: </label>
+                <input class="ui-control ui-button" id="file" name="file" type="file"/>
+                <input class="ui-control ui-button" type="submit" value="upload"/>
+            </form>
+        </article>
+    </section>
 
-            <footer class="footer">
-                <p>Copyright &copy; 2021, Jakub Bedra</p>
-            </footer>
-        </div>
-    </body>
+    <footer class="footer">
+        <p>Copyright &copy; 2021, Jakub Bedra</p>
+    </footer>
+</div>
+</body>
 </html>

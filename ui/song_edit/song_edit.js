@@ -21,7 +21,41 @@ function fetchAndDisplaySong() {
             }
         }
     }
-    xhttp.open("GET",getBackendUrl() + '/api/songs/' + getParameterByName('song'));
+    xhttp.open("GET", getBackendUrl() + '/api/songs/' + getParameterByName('song'));
     console.log(getParameterByName('song'));
     xhttp.send();
+}
+
+function updateSongAction(event) {
+    event.preventDefault();
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("PUT", getBackendUrl() + '/api/songs/' + getParameterByName('song'), true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 202) {
+            fetchAndDisplaySong();
+        }
+    }
+    const request = {
+        'title': document.getElementById('title').value,
+        'authorUuid': getParameterByName('author')
+    };
+
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.send(JSON.stringify(request));
+    updateSongFile(event);
+}
+
+function updateSongFile(event) {
+    event.preventDefault();
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("PUT", getBackendUrl() + '/api/songs/' + getParameterByName('song') + '/file', true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 202) {
+            fetchAndDisplaySong();
+        }
+    }
+    let request = new FormData();
+    request.append("songFile", document.getElementById('file').files[0]);
+    xhttp.send(request);
 }

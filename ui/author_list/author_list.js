@@ -3,6 +3,8 @@ import {getBackendUrl} from "../js/config.js";
 
 window.addEventListener('load', () => {
     fetchAndDisplayAuthors();
+    const songForm = document.getElementById('authorForm');
+    songForm.addEventListener('submit', event => createAuthorAction(event));
 });
 
 function fetchAndDisplayAuthors() {
@@ -23,6 +25,25 @@ function displayAuthors(authors) {
     authors.authors.forEach(author => {
         tableBody.appendChild(createTableRow(author));
     });
+}
+
+function createAuthorAction(event) {
+    event.preventDefault();
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", getBackendUrl() + '/api/authors', true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 201) {
+            fetchAndDisplayAuthors();
+        }
+    };
+
+    const request = {
+        'name': document.getElementById('name').value
+    };
+
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.send(JSON.stringify(request));
 }
 
 function createTableRow(author) {

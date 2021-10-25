@@ -81,4 +81,15 @@ public class SongsService {
         }
     }
 
+    public void updateFile(UUID uuid, InputStream is) {
+        songsRepository.findById(uuid).ifPresent(song -> {
+            try {
+                filesRepository.deleteById(uuid);
+                filesRepository.save(uuid, is.readAllBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }

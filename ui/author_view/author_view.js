@@ -9,10 +9,31 @@ import {
 import {getBackendUrl} from "../js/config.js";
 
 window.addEventListener('load', () => {
-    console.log('dupa');
+    const songForm = document.getElementById('songForm');
+    songForm.addEventListener('submit', event => createSongAction(event));
     fetchAndDisplayAuthor();
     fetchAndDisplaySongs();
 });
+
+function createSongAction(event) {
+    event.preventDefault();
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", getBackendUrl() + '/api/songs', true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 201) {
+            fetchAndDisplaySongs();
+        }
+    }
+    let request = new FormData();
+    request.append("file", document.getElementById('file').files[0]);
+    request.append("info", new Blob([JSON.stringify({
+        'title': document.getElementById('title').value,
+        'authorUuid': getParameterByName('author')
+    })], {type: "application/json"}));
+    console.log('dupa\n' + document.getElementById('file').files[0].name);
+    xhttp.send(request);
+}
 
 function fetchAndDisplaySongs() {
     const xhttp = new XMLHttpRequest();
@@ -29,7 +50,6 @@ function fetchAndDisplaySongs() {
 function displaySongs(songs) {
     let tableBody = document.getElementById('tableBody');
     clearElementChildren(tableBody);
-    console.log(songs);
     (songs.songs).forEach(song => {
         tableBody.appendChild(createTableRow(song));
     });
@@ -40,7 +60,8 @@ function createTableRow(song) {
     tr.appendChild(createTextCell(song.uuid));
     tr.appendChild(createTextCell(song.title));
     tr.appendChild(createButtonCell('play', () => fetchAndPlaySong(song.uuid)));
-    tr.appendChild(createLinkCell('edit', '../song_edit/song_edit.html?song=' + song.uuid));
+    tr.appendChild(createLinkCell('edit', '../song_edit/song_edit.html?song=' + song.uuid +
+        '&author=' + getParameterByName('author')));
     tr.appendChild(createButtonCell('delete', () => deleteSong(song.uuid)));
     return tr;
 }
@@ -77,12 +98,13 @@ function fetchAndPlaySong(uuid) {
     playSong(uuid);
 }
 
+//todo \/
 async function playSong(uuid) {
     let audio = new Audio(getBackendUrl() + '/api/songs/' + uuid + '/file');
     audio.load();
     audio.volume = 0.3;
     audio.play();
-    await delay(15000);
+    await delay(25000);
     audio.pause();
 }
 

@@ -1,0 +1,13 @@
+.author__form {
+    display: grid;
+    grid-template-columns: 120px 200px;
+    grid-gap: 10px;
+}
+
+.author__form label {
+    color: white;
+}
+
+.author__form input {
+    color: white;
+}

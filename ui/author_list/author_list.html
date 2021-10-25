@@ -7,6 +7,7 @@
     <meta name="author" content="Jakub Bedra"/>
     <title>Songname</title>
     <link rel="stylesheet" href="../styles.css"/>
+    <link rel="stylesheet" href="author_list.css"/>
     <script src="../script.js" defer="defer"></script>
     <script type="module" src="author_list.js" defer="defer"></script>
 </head>
@@ -44,8 +45,19 @@
                         <button class="ui-button ui-control">delete</button>
                     </td>
                 </tr>
+                <tr>
+                    <td><a href="#">add</a></td>
+                </tr>
                 </tbody>
             </table>
+        </article>
+        <article class="text--justified">
+            <header><h2 class="header">Add author</h2></header>
+            <form class="author__form" id="authorForm">
+                <label for="name">Name: </label>
+                <input class="ui-control ui-input" id="name" name="name"/>
+                <input class="ui-control ui-button" type="submit" value="add"/>
+            </form>
         </article>
     </section>
 
