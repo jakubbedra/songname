@@ -7,8 +7,9 @@
     <meta name="author" content="Jakub Bedra"/>
     <title>Songname</title>
     <link rel="stylesheet" href="../styles.css"/>
+    <link rel="stylesheet" href="author_view.css"/>
     <script src="../script.js" defer="defer"></script>
-    <script type="module" src="author_list.js" defer="defer"></script>
+    <script type="module" src="author_view.js" defer="defer"></script>
 </head>
 <body>
 <div class="container">
@@ -26,26 +27,19 @@
 
     <section class="main-section">
         <article class="text--justified">
-            <header class="header"><h2>Authors</h2></header>
-            <table class="data-table">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>view</th>
-                    <th>delete</th>
-                </tr>
-                </thead>
-                <tbody id="tableBody">
-                <tr>
-                    <td>name</td>
-                    <td><a href="#">view</a></td>
-                    <td><a href="#">edit</a></td>
-                    <td>
-                        <button class="ui-button ui-control">delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <header><h2 class="header">Edit song info</h2></header>
+            <form class="song_form" id="songForm">
+                <label for="title">Title: </label>
+                <input class="ui-control ui-input" id="title" name="title"/>
+                <label for="file">File: </label>
+                <input class="ui-control ui-button" id="file" name="file" type="file"/>
+                <input class="ui-control ui-button" type="submit" value="save changes"/>
+            </form>
+        </article>
+
+        <article class="text--justified">
+            <header><h2 class="header">Edit song file</h2></header>
+            <form></form>
         </article>
     </section>
 

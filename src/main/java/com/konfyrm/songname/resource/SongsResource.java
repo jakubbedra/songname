@@ -9,11 +9,17 @@ import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.service.AuthorsService;
 import com.konfyrm.songname.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,7 +42,7 @@ public class SongsResource {
     }
 
     @GetMapping("/dupa")
-    public ResponseEntity<String> dupa(){
+    public ResponseEntity<String> dupa() {
         return ResponseEntity.ok("dupa");
     }
 
@@ -89,6 +95,52 @@ public class SongsResource {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{uuid}/file")
+    public ResponseEntity<byte[]> getSongFile(@PathVariable("uuid") String uuid) throws IOException {
+        Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
+        if (song.isPresent()) {
+            InputStream is = songsService.getFileById(UUID.fromString(uuid));
+            byte[] bytes = is.readAllBytes();
+            //InputStreamResource resource = new InputStreamResource(is);
+            HttpHeaders headers = createFileHeaders(song.get().getTitle() + ".mp3");
+            return ResponseEntity.ok().headers(headers)
+                    .contentLength(bytes.length)
+                    .contentType(MediaType.parseMediaType("application/mp3"))
+                    .body(bytes);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping(value = "/{uuid}/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> uploadSongFile(@RequestParam("songFile") MultipartFile file,
+                                               @PathVariable("uuid") String uuid) throws IOException {
+        Optional<Song> song = songsService.getSongById(UUID.fromString(uuid));
+        if (song.isPresent()) {
+            songsService.uploadFile(song.get().getUuid(), file.getInputStream());
+            return ResponseEntity.accepted().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping(value = "/{uuid}/file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> updateSongFile(@RequestParam("songFile") MultipartFile file,
+                                               @PathVariable("uuid") String uuid) throws IOException {
+        return ResponseEntity.ok().build();
+    }
+
+    private HttpHeaders createFileHeaders(String filename) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition",
+                String.format("attachment; filename=\"%s\"", filename));
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        return headers;
     }
 
 }

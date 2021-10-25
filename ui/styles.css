@@ -76,6 +76,7 @@ body {
     height: 24px;
     padding-left: 2px;
     padding-right: 2px;
+    color: white;
 }
 
 .ui-input {
@@ -92,6 +93,7 @@ body {
 
 .data-table td, .data-table th {
     padding: 6px;
+    color: white;
 }
 
 .data-table thead {

@@ -1,10 +1,15 @@
 package com.konfyrm.songname.service;
 
+import com.konfyrm.songname.dao.SongFilesRepository;
 import com.konfyrm.songname.dao.SongsRepository;
 import com.konfyrm.songname.model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,12 +19,15 @@ import java.util.stream.Collectors;
 public class SongsService {
 
     private final SongsRepository songsRepository;
+    private final SongFilesRepository filesRepository;
 
     @Autowired
     public SongsService(
-            SongsRepository songsRepository
+            SongsRepository songsRepository,
+            SongFilesRepository songFilesRepository
     ) {
         this.songsRepository = songsRepository;
+        this.filesRepository = songFilesRepository;
     }
 
     public List<Song> getAllSongs() {
@@ -48,6 +56,29 @@ public class SongsService {
     public void updateSong(Song song) {
         songsRepository.deleteById(song.getUuid());
         songsRepository.save(song);
+    }
+
+    public void uploadFile(UUID uuid, InputStream is) {
+        songsRepository.findById(uuid).ifPresent(song -> {
+            try {
+                filesRepository.save(uuid, is.readAllBytes());
+            } catch (IOException e) {
+                throw new IllegalStateException();
+            }
+        });
+    }
+
+    public InputStream getFileById(UUID uuid) {
+        Optional<Song> song = songsRepository.findById(uuid);
+        if (song.isPresent()) {
+            try {
+                return filesRepository.getById(uuid);
+            } catch (IOException e) {
+                throw new IllegalStateException();
+            }
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
 }
