@@ -40,7 +40,7 @@ function createTableRow(song) {
     tr.appendChild(createTextCell(song.uuid));
     tr.appendChild(createTextCell(song.title));
     tr.appendChild(createButtonCell('play', () => fetchAndPlaySong(song.uuid)));
-    tr.appendChild(createLinkCell('edit', '../song_edit'));
+    tr.appendChild(createLinkCell('edit', '../song_edit/song_edit.html?song=' + song.uuid));
     tr.appendChild(createButtonCell('delete', () => deleteSong(song.uuid)));
     return tr;
 }

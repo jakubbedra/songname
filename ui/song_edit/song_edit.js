@@ -8,3 +8,20 @@ window.addEventListener('load', () => {
     fetchAndDisplaySong();
 });
 
+function fetchAndDisplaySong() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            let response = JSON.parse(this.responseText);
+            for (const [key, value] of Object.entries(response)) {
+                let input = document.getElementById(key);
+                if (input) {
+                    input.value = value;
+                }
+            }
+        }
+    }
+    xhttp.open("GET",getBackendUrl() + '/api/songs/' + getParameterByName('song'));
+    console.log(getParameterByName('song'));
+    xhttp.send();
+}

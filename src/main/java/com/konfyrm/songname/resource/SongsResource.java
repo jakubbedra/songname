@@ -41,11 +41,6 @@ public class SongsResource {
         this.authorsService = authorsService;
     }
 
-    @GetMapping("/dupa")
-    public ResponseEntity<String> dupa() {
-        return ResponseEntity.ok("dupa");
-    }
-
     @GetMapping
     public ResponseEntity<GetSongsResponse> getSongs() {
         List<Song> songs = songsService.getAllSongs();

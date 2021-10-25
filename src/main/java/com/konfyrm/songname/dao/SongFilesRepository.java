@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.UUID;
 
 @Repository
@@ -19,6 +21,13 @@ public class SongFilesRepository {
         this.basePath = res.getPath();
     }
 
+    /**
+     * Returns the file of the song with given uuid.
+     *
+     * @param uuid A unique identifier of the song.
+     * @return A FileInputStream containing the song.
+     * @throws FileNotFoundException
+     */
     public synchronized FileInputStream getById(UUID uuid) throws FileNotFoundException {
         File file = new File(basePath + uuid + ".mp3");
         FileInputStream fileInputStream = new FileInputStream(file);
@@ -43,8 +52,21 @@ public class SongFilesRepository {
         }
     }
 
+    /**
+     * Deletes the song file if it exists.
+     *
+     * @param uuid The unique identifier of the song.
+     */
     public synchronized void deleteById(UUID uuid) {
-
+        boolean deleted = false;
+        try {
+            deleted = Files.deleteIfExists(Path.of(basePath + uuid + ".mp3"));
+        } catch (IOException e) {
+            if (!deleted) {
+                throw new IllegalArgumentException("File for the song with uuid: " + uuid + " was not found." +
+                        e.getMessage(), e);
+            }
+        }
     }
 
 }

@@ -1,0 +1,13 @@
+.song__form {
+    display: grid;
+    grid-template-columns: 120px 200px;
+    grid-gap: 10px;
+}
+
+.song__form label {
+    color: white;
+}
+
+.song__form input {
+    color: white;
+}

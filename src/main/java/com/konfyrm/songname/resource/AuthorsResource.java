@@ -1,6 +1,6 @@
 package com.konfyrm.songname.resource;
 
-import com.konfyrm.songname.cli.DataInitializer;
+import com.konfyrm.songname.config.DataInitializer;
 import com.konfyrm.songname.dto.*;
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.konfyrm.songname.cli;
+package com.konfyrm.songname.config;
 
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
@@ -28,7 +28,7 @@ public class DataInitializer {
         authorsService.addNewAuthor(malik);
         authorsService.addNewAuthor(alberto);
 
-        Song song1 = new Song("Who you mam", malik);
+        Song song1 = new Song("Mordo weź", malik);
         Song song2 = new Song("6.3 AMG", malik);
         Song song3 = new Song("Dwutakt", alberto);
         Song song4 = new Song("Strzał", alberto);
