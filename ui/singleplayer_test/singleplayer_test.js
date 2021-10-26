@@ -18,8 +18,11 @@ function takeGuessAction(event) {
 
     if (songJson.title === document.getElementById('title').value
         && songJson.author === document.getElementById('author').value) {
-        console.log('dupa');
+        alert('you win!');
     }
+
+    //todo: add actual game logic XDDDD
+    //and aswell make a regex instead of actuall string, because it will not be fun :(
     /*
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", getBackendUrl() + '/api/songs', true);
@@ -44,8 +47,7 @@ function fetchRandomSong() {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             updateJson(JSON.parse(this.responseText));
-            console.log(songJson);
-            displayAudio(songJson);
+            displayAudio(songJson);//todo: fix it, make it cleaner, I found out what was wrong: I just did not append the row to table xd
         }
     };
     xhttp.open("GET", getBackendUrl() + '/api/songs/random', true);
@@ -60,7 +62,7 @@ function updateJson(song) {
 function displayAudio(song) {
     let tableBody = document.getElementById('tableBody');
     clearElementChildren(tableBody);
-    createTableRow(song);
+    tableBody.appendChild(createTableRow(song));// <------------------- this little shit here
 }
 
 function createTableRow(song) {
@@ -69,7 +71,7 @@ function createTableRow(song) {
     tr.appendChild(createButtonCell('play', () => {
         //console.log(song.uuid);
         audioPlayer.fetchSong(song.uuid);
-        audioPlayer.playPause();
+        audioPlayer.playWithTimeLimit();
     }));
     tr.appendChild(createButtonCell('more seconds', () => audioPlayer.incrementTime(1)));
     return tr;
