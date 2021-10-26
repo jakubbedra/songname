@@ -33,6 +33,7 @@ function createSongAction(event) {
     })], {type: "application/json"}));
     console.log('dupa\n' + document.getElementById('file').files[0].name);
     xhttp.send(request);
+    event.target.reset();
 }
 
 function fetchAndDisplaySongs() {
@@ -104,7 +105,7 @@ async function playSong(uuid) {
     audio.load();
     audio.volume = 0.3;
     audio.play();
-    await delay(25000);
+    await delay(1000);
     audio.pause();
 }
 

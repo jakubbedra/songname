@@ -44,6 +44,7 @@ function createAuthorAction(event) {
 
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(JSON.stringify(request));
+    event.target.reset();
 }
 
 function createTableRow(author) {
