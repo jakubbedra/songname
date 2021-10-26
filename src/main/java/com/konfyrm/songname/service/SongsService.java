@@ -45,7 +45,7 @@ public class SongsService {
                 .collect(Collectors.toList());
     }
 
-    public void addNewSong(Song song) {
+    public void addSong(Song song) {
         songsRepository.save(song);
     }
 

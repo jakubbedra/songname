@@ -19,24 +19,30 @@
 
     <nav class="navigation-bar">
         <ul>
-            <li><a>dupa</a></li>
-            <li><a>dupa</a></li>
-            <li><a>dupa</a></li>
+            <li><a href="../singleplayer_test/singleplayer_test.html">Singleplayer</a></li>
+            <li><a>Multiplayer</a></li>
+            <li><a href="../author_list/author_list.html">Songs</a></li>
         </ul>
     </nav>
 
     <section class="main-section">
         <article class="text--justified">
-            <header><h2 class="header">Edit song</h2></header>
+            <header><h2 class="header">Edit song info</h2></header>
             <form class="song__form" id="songForm">
                 <label for="title">Title: </label>
                 <input class="ui-control ui-input" id="title" name="title"/>
+                <input class="ui-control ui-button" type="submit" value="save changes"/>
+            </form>
+        </article>
+
+        <article class="text--justified">
+            <header><h2 class="header">Edit song info</h2></header>
+            <form class="song__form" id="fileForm">
                 <label for="file">File: </label>
                 <input class="ui-control ui-button" id="file" name="file" type="file"/>
                 <input class="ui-control ui-button" type="submit" value="save changes"/>
             </form>
         </article>
-
     </section>
 
     <footer class="footer">

@@ -1,0 +1,13 @@
+.guess__form {
+    display: grid;
+    grid-template-columns: 120px 200px;
+    grid-gap: 10px;
+}
+
+.guess__form label {
+    color: white;
+}
+
+.guess__form input {
+    color: white;
+}

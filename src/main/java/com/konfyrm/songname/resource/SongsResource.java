@@ -9,11 +9,9 @@ import com.konfyrm.songname.model.Song;
 import com.konfyrm.songname.service.AuthorsService;
 import com.konfyrm.songname.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 
@@ -54,6 +53,15 @@ public class SongsResource {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/random")
+    public ResponseEntity<GetSongResponse> getRandomSong() {
+        List<Song> songs = songsService.getAllSongs();
+        Random r = new Random();
+        return ResponseEntity.ok(
+                new GetSongResponse(songs.get(r.nextInt(songs.size())))
+        );
+    }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> createSong(@RequestPart("file") MultipartFile file,
                                            @RequestPart("info") CreateSongRequest request,
@@ -61,7 +69,7 @@ public class SongsResource {
         Optional<Author> author = authorsService.getAuthorById(request.getAuthorUuid());
         if (author.isPresent()) {
             Song song = new Song(request.getTitle(), author.get());
-            songsService.addNewSong(song);
+            songsService.addSong(song);
             songsService.uploadFile(song.getUuid(), file.getInputStream());
             return ResponseEntity.created(builder.pathSegment("api", "songs", "{uuid}")
                     .buildAndExpand(song.getUuid()).toUri()).build();

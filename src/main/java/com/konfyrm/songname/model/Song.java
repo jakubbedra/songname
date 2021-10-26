@@ -15,7 +15,6 @@ public class Song implements Serializable {
     @ManyToOne
     @JoinColumn(name = "author")
     private Author author;
-    private String filePath;
 
     public Song() {
     }
@@ -24,7 +23,12 @@ public class Song implements Serializable {
         this.uuid = UUID.randomUUID();
         this.title = title;
         this.author = author;
-        this.filePath = null; //tbi
+    }
+
+    public Song(UUID uuid, String title, Author author) {
+        this.uuid = uuid;
+        this.title = title;
+        this.author = author;
     }
 
     public UUID getUuid() {
@@ -37,10 +41,6 @@ public class Song implements Serializable {
 
     public Author getAuthor() {
         return author;
-    }
-
-    public String getFilePath() {
-        return filePath;
     }
 
     public void setTitle(String title) {

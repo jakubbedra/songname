@@ -7,9 +7,9 @@
     <meta name="author" content="Jakub Bedra"/>
     <title>Songname</title>
     <link rel="stylesheet" href="../styles.css"/>
-    <link rel="stylesheet" href="author_list.css"/>
+    <link rel="stylesheet" href="singleplayer_test.css"/>
     <script src="../script.js" defer="defer"></script>
-    <script type="module" src="author_list.js" defer="defer"></script>
+    <script type="module" src="singleplayer_test.js" defer="defer"></script>
 </head>
 <body>
 <div class="container">
@@ -27,37 +27,30 @@
 
     <section class="main-section">
         <article class="text--justified">
-            <header class="header"><h2>Authors</h2></header>
+            <header><h2 class="header">Guess the song title and author!</h2></header>
             <table class="data-table">
                 <thead>
                 <tr>
-                    <th>name</th>
-                    <th>view</th>
-                    <th>edit</th>
-                    <th>delete</th>
+                    <th>play</th>
+                    <th>increment</th>
                 </tr>
                 </thead>
                 <tbody id="tableBody">
                 <tr>
-                    <td>name</td>
-                    <td><a href="#">view</a></td>
-                    <td><a href="#">edit</a></td>
-                    <td>
-                        <button class="ui-button ui-control">delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a href="#">add</a></td>
+                    <td><a href="">play</a></td>
+                    <td><a href="">increment</a></td>
                 </tr>
                 </tbody>
             </table>
         </article>
+
         <article class="text--justified">
-            <header><h2 class="header">Add author</h2></header>
-            <form class="author__form" id="authorForm">
-                <label for="name">Name: </label>
-                <input class="ui-control ui-input" id="name" name="name"/>
-                <input class="ui-control ui-button" type="submit" value="add"/>
+            <form class="guess__form" id="guessForm">
+                <label for="title">Title: </label>
+                <input class="ui-control ui-input" id="title" name="title"/>
+                <label for="author">Author: </label>
+                <input class="ui-control ui-input" id="author" name="author"/>
+                <input class="ui-control ui-button" type="submit" value="guess"/>
             </form>
         </article>
     </section>

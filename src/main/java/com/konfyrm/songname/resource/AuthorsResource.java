@@ -1,6 +1,6 @@
 package com.konfyrm.songname.resource;
 
-import com.konfyrm.songname.config.DataInitializer;
+import com.konfyrm.songname.config.DataManager;
 import com.konfyrm.songname.dto.*;
 import com.konfyrm.songname.model.Author;
 import com.konfyrm.songname.model.Song;
@@ -20,19 +20,15 @@ import java.util.UUID;
 @RestController
 public class AuthorsResource {
 
-    private final DataInitializer dataInitializer;
-
     private final AuthorsService authorsService;
     private final SongsService songsService;
 
     @Autowired
     public AuthorsResource(
-            DataInitializer dataInitializer,
+            DataManager dataManager,
             AuthorsService authorsService,
             SongsService songsService
     ) {
-        this.dataInitializer = dataInitializer;
-        dataInitializer.initData(); //todo better!!!!!!!!!!!!!!
         this.authorsService = authorsService;
         this.songsService = songsService;
     }
@@ -59,7 +55,7 @@ public class AuthorsResource {
     @PostMapping
     public ResponseEntity<Void> createAuthor(@RequestBody CreateAuthorRequest request, UriComponentsBuilder builder) {
         Author author = new Author(request.getName());
-        authorsService.addNewAuthor(author);
+        authorsService.addAuthor(author);
         return ResponseEntity.created(builder.pathSegment("api", "authors", "{uuid}")
                 .buildAndExpand(author.getUuid()).toUri()).build();
     }
@@ -80,7 +76,7 @@ public class AuthorsResource {
         Optional<Author> author = authorsService.getAuthorById(UUID.fromString(uuid));
         if (author.isPresent()) {
             author.get().setName(request.getName());
-            authorsService.updateAuthor(author.get());
+            authorsService.addAuthor(author.get());
             return ResponseEntity.accepted().build();
         } else {
             return ResponseEntity.notFound().build();

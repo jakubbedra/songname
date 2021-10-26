@@ -17,7 +17,6 @@ public class SongFilesRepository {
     @Autowired
     public SongFilesRepository() {
         URL res = getClass().getClassLoader().getResource("songs/");
-        //System.out.println(res);
         this.basePath = res.getPath();
     }
 
@@ -53,20 +52,14 @@ public class SongFilesRepository {
     }
 
     /**
-     * Deletes the song file if it exists.
+     * Deletes the song file.
      *
      * @param uuid The unique identifier of the song.
      */
     public synchronized void deleteById(UUID uuid) {
         boolean deleted = false;
-        try {
-            deleted = Files.deleteIfExists(Path.of(basePath + uuid + ".mp3"));
-        } catch (IOException e) {
-            if (!deleted) {
-                throw new IllegalArgumentException("File for the song with uuid: " + uuid + " was not found." +
-                        e.getMessage(), e);
-            }
-        }
+        File file = new File(basePath + uuid + ".mp3");
+        file.delete();
     }
 
 }

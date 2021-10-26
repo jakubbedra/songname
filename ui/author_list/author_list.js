@@ -51,7 +51,7 @@ function createTableRow(author) {
     let tr = document.createElement('tr');
     tr.appendChild(createTextCell(author.name));
     tr.appendChild(createLinkCell('view', '../author_view/author_view.html?author=' + author.uuid));
-    //console.log(author.uuid);
+    tr.appendChild(createLinkCell('edit', '../author_edit/author_edit.html?author=' + author.uuid))
     tr.appendChild(createButtonCell('delete', () => deleteAuthor(author.uuid)));
     return tr;
 }

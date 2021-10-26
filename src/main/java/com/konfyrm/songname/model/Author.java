@@ -34,6 +34,11 @@ public class Author implements Serializable {
         this.songs = new ArrayList<>();
     }
 
+    public Author(UUID uuid, String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
+
     public UUID getUuid() {
         return uuid;
     }

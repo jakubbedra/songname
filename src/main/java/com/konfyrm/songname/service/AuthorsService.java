@@ -27,7 +27,7 @@ public class AuthorsService {
         return authorsRepository.findById(uuid);
     }
 
-    public void addNewAuthor(Author author) {
+    public void addAuthor(Author author) {
         authorsRepository.save(author);
     }
 

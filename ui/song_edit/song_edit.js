@@ -4,6 +4,8 @@ import {getBackendUrl} from "../js/config.js";
 window.addEventListener('load', () => {
     const songForm = document.getElementById('songForm');
     songForm.addEventListener('submit', event => updateSongAction(event));
+    const fileForm = document.getElementById('fileForm');
+    fileForm.addEventListener('submit', event => updateFileAction(event));
 
     fetchAndDisplaySong();
 });
@@ -22,7 +24,6 @@ function fetchAndDisplaySong() {
         }
     }
     xhttp.open("GET", getBackendUrl() + '/api/songs/' + getParameterByName('song'));
-    console.log(getParameterByName('song'));
     xhttp.send();
 }
 
@@ -43,10 +44,9 @@ function updateSongAction(event) {
 
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(JSON.stringify(request));
-    updateSongFile(event);
 }
 
-function updateSongFile(event) {
+function updateFileAction(event) {
     event.preventDefault();
     const xhttp = new XMLHttpRequest();
     xhttp.open("PUT", getBackendUrl() + '/api/songs/' + getParameterByName('song') + '/file', true);

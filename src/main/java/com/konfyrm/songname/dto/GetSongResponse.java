@@ -9,13 +9,11 @@ public class GetSongResponse {
     private UUID uuid;
     private String title;
     private String author;
-    private String filePath;
 
     public GetSongResponse(Song song) {
         this.uuid = song.getUuid();
         this.title = song.getTitle();
         this.author = song.getAuthor().getName();
-        this.filePath = song.getFilePath();
     }
 
     public UUID getUuid() {
@@ -28,10 +26,6 @@ public class GetSongResponse {
 
     public String getAuthor() {
         return author;
-    }
-
-    public String getFilePath() {
-        return filePath;
     }
 
     public void setTitle(String title) {
