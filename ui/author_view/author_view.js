@@ -60,7 +60,12 @@ function createTableRow(song) {
     let tr = document.createElement('tr');
     tr.appendChild(createTextCell(song.uuid));
     tr.appendChild(createTextCell(song.title));
-    tr.appendChild(createButtonCell('play', () => fetchAndPlaySong(song.uuid)));
+    let audioPlayer = new AudioPlayer();
+    tr.appendChild(createButtonCell('play', () => {
+        //console.log(song.uuid);
+        audioPlayer.fetchSong(song.uuid);
+        //audioPlayer.playPause();
+    }));
     tr.appendChild(createLinkCell('edit', '../song_edit/song_edit.html?song=' + song.uuid +
         '&author=' + getParameterByName('author')));
     tr.appendChild(createButtonCell('delete', () => deleteSong(song.uuid)));
@@ -95,11 +100,11 @@ function displayAuthor(author) {
     setTextNode('name', author.name);
 }
 
+/*
 function fetchAndPlaySong(uuid) {
     playSong(uuid);
 }
 
-//todo \/
 async function playSong(uuid) {
     let audio = new Audio(getBackendUrl() + '/api/songs/' + uuid + '/file');
     audio.load();
@@ -119,4 +124,49 @@ function playPauseAudio(audio) {
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+*/
+/**
+ * Simple class for playing audio
+ * todo: move later on to a separate file in order to expand it and reuse in the actual game
+ */
+class AudioPlayer {
+
+    uuid;
+    audio;
+    paused;
+
+    constructor() {
+        this.audio = new Audio();
+        this.uuid = new String();
+        this.paused = true;
+    }
+
+    fetchSong(uuid) {
+        console.log(uuid);
+        console.log(this.uuid);
+        if (this.uuid !== uuid) {
+            if (!this.audio.paused) {
+                //this.audio.pause();
+                //this.audio = new Audio(getBackendUrl() + '/api/songs/' + this.uuid + '/file');
+                //this.audio.load();
+                console.log('loaded new audio: ' + uuid);
+                this.paused = true;
+                this.uuid = uuid;
+            }
+        }
+    }
+
+    playPause() {
+        if (/*this.audio.paused*/this.paused) {
+//            this.audio.play();
+            console.log('playing audio: ' + this.uuid);
+            this.paused = false;
+        } else {
+//            this.audio.pause();
+            console.log('pausing audio: ' + this.uuid);
+            this.paused = true;
+        }
+    }
+
 }
