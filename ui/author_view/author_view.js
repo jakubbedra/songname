@@ -104,9 +104,17 @@ async function playSong(uuid) {
     let audio = new Audio(getBackendUrl() + '/api/songs/' + uuid + '/file');
     audio.load();
     audio.volume = 0.3;
-    audio.play();
-    await delay(1000);
-    audio.pause();
+    console.log('dupa');
+
+    playPauseAudio(audio);
+}
+
+function playPauseAudio(audio) {
+    if (!audio.paused) {
+        audio.pause();
+    } else {
+        audio.play();
+    }
 }
 
 function delay(ms) {
