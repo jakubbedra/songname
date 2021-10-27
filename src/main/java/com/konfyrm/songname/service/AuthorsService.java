@@ -4,6 +4,7 @@ import com.konfyrm.songname.dao.AuthorsRepository;
 import com.konfyrm.songname.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -27,6 +28,7 @@ public class AuthorsService {
         return authorsRepository.findById(uuid);
     }
 
+    @Transactional
     public void addAuthor(Author author) {
         authorsRepository.save(author);
     }
@@ -37,18 +39,9 @@ public class AuthorsService {
      *
      * @param uuid A {@code UUID} of the author.
      */
+    @Transactional
     public void removeAuthorById(UUID uuid) {
         authorsRepository.deleteById(uuid);
-    }
-
-    /**
-     * Updates the author in database.
-     *
-     * @param author An {@code Author} business entity.
-     */
-    public void updateAuthor(Author author) {
-        authorsRepository.deleteById(author.getUuid());
-        authorsRepository.save(author);
     }
 
 }

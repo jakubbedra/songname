@@ -6,6 +6,7 @@ import com.konfyrm.songname.model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -45,14 +46,17 @@ public class SongsService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void addSong(Song song) {
         songsRepository.save(song);
     }
 
+    @Transactional
     public void removeSongById(UUID uuid) {
         songsRepository.deleteById(uuid);
     }
 
+    @Transactional
     public void updateSong(Song song) {
         songsRepository.deleteById(song.getUuid());
         songsRepository.save(song);

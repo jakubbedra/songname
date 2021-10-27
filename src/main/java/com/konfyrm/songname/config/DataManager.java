@@ -26,6 +26,7 @@ public class DataManager {
     private final AuthorsService authorsService;
 
     private final String jsonFilesPath;
+    private static final String tmpPath = "./target/classes/json_data/"; //todo: make this shit work correctly xdddd
 
     @Autowired
     public DataManager(
@@ -35,7 +36,9 @@ public class DataManager {
         this.songsService = songsService;
         this.authorsService = authorsService;
         URL res = getClass().getClassLoader().getResource("json_data/");
-        this.jsonFilesPath = res.getPath();
+//        System.out.println(res.getPath());
+//        this.jsonFilesPath = res.getPath();
+        this.jsonFilesPath = tmpPath;
     }
 
     public void initData() {
@@ -54,6 +57,9 @@ public class DataManager {
         songsService.addSong(song4);
     }
 
+    /*
+    todo: make it pre-destroy and importing post construct
+     */
     public void exportDataToFile() {
         List<Author> authors = authorsService.getAllAuthors();
         List<Song> songs = songsService.getAllSongs();
@@ -72,8 +78,9 @@ public class DataManager {
     public void importDataFromFile() {
         try {
             ObjectMapper mapper = new ObjectMapper();
+
             GetAuthorsFileDto authorsDto = mapper.readValue(
-                    new File(jsonFilesPath + "authors.json"), GetAuthorsFileDto.class
+                    new File(tmpPath + "authors.json"), GetAuthorsFileDto.class
             );
             List<Author> authors = new LinkedList<>();
             Map<UUID, Author> authorsMap = new HashMap();
@@ -85,7 +92,7 @@ public class DataManager {
             authors.forEach(authorsService::addAuthor);
 
             GetSongsFileDto songsDto = mapper.readValue(
-                    new File(jsonFilesPath + "songs.json"), GetSongsFileDto.class
+                    new File(tmpPath + "songs.json"), GetSongsFileDto.class
             );
             List<Song> songs = new LinkedList<>();
             songsDto.getSongs().forEach(s ->
