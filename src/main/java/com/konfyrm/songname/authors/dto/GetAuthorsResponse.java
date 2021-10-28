@@ -1,12 +1,12 @@
-package com.konfyrm.songname.config.dto;
+package com.konfyrm.songname.authors.dto;
 
 import com.konfyrm.songname.authors.model.Author;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
+import java.util.List;
 
-public class CreateAuthorsFileDto {
+public class GetAuthorsResponse {
 
     public class AuthorGet {
 
@@ -38,19 +38,15 @@ public class CreateAuthorsFileDto {
 
     private List<AuthorGet> authors;
 
-    public CreateAuthorsFileDto(List<Author> authors) {
+    public GetAuthorsResponse(List<Author> authors) {
         this.authors = new LinkedList<>();
-        authors.forEach(a ->
-                this.authors.add(new AuthorGet(a.getUuid(), a.getName()))
+        authors.forEach( a ->
+            this.authors.add(new AuthorGet(a.getUuid(), a.getName()))
         );
     }
 
     public List<AuthorGet> getAuthors() {
         return authors;
-    }
-
-    public void setAuthors(List<AuthorGet> authors) {
-        this.authors = authors;
     }
 
 }

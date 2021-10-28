@@ -1,0 +1,23 @@
+.player__form {
+    display: grid;
+    grid-template-columns: 120px 200px;
+    grid-gap: 10px;
+}
+
+.player__form label {
+    color: white;
+}
+
+.player__form input {
+    color: white;
+}
+
+.start-button {
+    height: 50px;
+    width: 100%;
+    color: white;
+}
+
+.start-div {
+    padding-top: 5%;
+}

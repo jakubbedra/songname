@@ -1,0 +1,67 @@
+.guess__form {
+    display: grid;
+    grid-template-columns: 120px 200px;
+    grid-gap: 10px;
+}
+
+.guess__form label {
+    color: white;
+}
+
+.guess__form input {
+    color: white;
+}
+
+.game-div {
+    display: flex;
+    justify-content: center;
+    background-color: #151515;
+    padding-bottom: 10%;
+    padding-top: 5%;
+}
+
+.song-div {
+    display: inline-block;
+    padding-right: 10%;
+}
+
+.players-div {
+    display: inline-block;
+    float: right;
+}
+
+.guess-button {
+    height: 50px;
+    width: 300%;
+    color: white;
+}
+
+.guess-div {
+    padding-top: 5%;
+}
+
+.song-table {
+    color: white;
+}
+
+.players-table {
+    color: white;
+}
+
+.players-table td {
+    text-align: center;
+}
+
+.players-table td a {
+    padding-right: 100%;
+}
+
+.current-player {
+    background-color: #330099;
+}
+
+.exit-button {
+    height: 50px;
+    width: 100%;
+    color: white;
+}

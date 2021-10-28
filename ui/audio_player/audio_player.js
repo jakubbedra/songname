@@ -6,11 +6,13 @@ export class AudioPlayer {
     audio;
     paused;
     timeLimit;
+    points;
 
     constructor() {
         this.audio = new Audio();
         this.paused = false;
         this.timeLimit = 1;
+        this.points = 10;
     }
 
     fetchSong(uuid) {
@@ -27,6 +29,9 @@ export class AudioPlayer {
 
     incrementTime(seconds) {
         this.timeLimit += seconds;
+        if (this.points >= 0) {
+            this.points--;
+        }
     }
 
     async playWithTimeLimit() {

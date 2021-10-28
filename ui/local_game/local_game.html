@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Simple song-guessing game."/>
+    <meta name="keywords" content="RPG"/>
+    <meta name="author" content="Jakub Bedra"/>
+    <title>Songname</title>
+    <link rel="stylesheet" href="../styles.css"/>
+    <link rel="stylesheet" href="local_game.css"/>
+    <script src="../script.js" defer="defer"></script>
+    <script type="module" src="local_game.js" defer="defer"></script>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>Songname</h1>
+    </header>
+
+    <nav class="navigation-bar">
+        <ul>
+            <li><a href="../author_list/author_list.html">Exit game</a></li>
+        </ul>
+    </nav>
+
+    <section class="main-section">
+        <div class="game-div">
+            <div class="song-div" id="songDiv">
+                <article class="text--justified">
+                    <header class="header"><h2 id="infoHeader">Try to guess the song!</h2></header>
+                    <table class="song-table">
+                        <thead>
+                        <tr>
+                            <th>play</th>
+                            <th>increment</th>
+                        </tr>
+                        </thead>
+                        <tbody id="songTableBody">
+                        <tr>
+                            <td><a href="">play</a></td>
+                            <td><a href="">increment</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="guess-div">
+                        <form class="guess__form" id="guessForm">
+                            <label for="title">Title: </label>
+                            <input class="ui-control ui-input game-input" id="title" name="title"/>
+                            <label for="author">Author: </label>
+                            <input class="ui-control ui-input game-input" id="author" name="author"/>
+                            <input class="ui-control guess-button" type="submit" value="GUESS" id="guessButton"/>
+                        </form>
+                    </div>
+                </article>
+            </div>
+            <div class="players-div" id="playersDiv">
+                <article class="text--justified">
+                    <header class="header"><h2>Players:</h2></header>
+                    <table class="players-table">
+                        <thead>
+                            <tr>
+                                <td><a>Player</a></td>
+                                <td><a>Score</a></td>
+                            </tr>
+                        </thead>
+                        <tbody id="playersTableBody">
+                        </tbody>
+                    </table>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Copyright &copy; 2021, Jakub Bedra</p>
+    </footer>
+</div>
+</body>
+</html>

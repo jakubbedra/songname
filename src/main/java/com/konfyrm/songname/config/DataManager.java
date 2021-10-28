@@ -5,18 +5,16 @@ import com.konfyrm.songname.config.dto.CreateAuthorsFileDto;
 import com.konfyrm.songname.config.dto.CreateSongsFileDto;
 import com.konfyrm.songname.config.dto.GetAuthorsFileDto;
 import com.konfyrm.songname.config.dto.GetSongsFileDto;
-import com.konfyrm.songname.model.Author;
-import com.konfyrm.songname.model.Song;
-import com.konfyrm.songname.service.AuthorsService;
-import com.konfyrm.songname.service.SongsService;
+import com.konfyrm.songname.authors.model.Author;
+import com.konfyrm.songname.songs.model.Song;
+import com.konfyrm.songname.authors.service.AuthorsService;
+import com.konfyrm.songname.songs.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.*;
 
 @Component
@@ -37,8 +35,8 @@ public class DataManager {
         this.authorsService = authorsService;
         URL res = getClass().getClassLoader().getResource("json_data/");
 //        System.out.println(res.getPath());
-//        this.jsonFilesPath = res.getPath();
-        this.jsonFilesPath = tmpPath;
+        this.jsonFilesPath = res.getPath();
+//        this.jsonFilesPath = tmpPath;
     }
 
     public void initData() {
