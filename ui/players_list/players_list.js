@@ -37,7 +37,8 @@ function startGame() {
             window.location.href = '../local_game/local_game.html?gameUuid=' + gameUuid;
         }
     };
-    xhttp.open("POST", getBackendUrl() + '/api/game/' + gameUuid + '/create', true);
+    let turns = document.getElementById('turns').value;
+    xhttp.open("POST", getBackendUrl() + '/api/game/' + gameUuid + '/create?turns=' + turns, true);
     xhttp.send();
 }
 

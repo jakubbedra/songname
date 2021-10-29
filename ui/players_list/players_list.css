@@ -21,3 +21,17 @@
 .start-div {
     padding-top: 5%;
 }
+
+.players-div {
+    display: inline-block;
+}
+
+.config-div {
+    display: inline-block;
+    float: right;
+}
+
+.center-div {
+    display: flex;
+    justify-content: center;
+}

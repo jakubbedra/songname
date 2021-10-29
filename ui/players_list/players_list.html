@@ -25,37 +25,58 @@
     </nav>
 
     <section class="main-section">
-        <article class="text--justified">
-            <header class="header"><h2>Players</h2></header>
-            <table class="data-table">
-                <thead>
-                <tr>
-                    <th>name</th>
-                    <th>delete</th>
-                </tr>
-                </thead>
-                <tbody id="tableBody">
-                <tr>
-                    <td>name</td>
-                    <td>
-                        <button class="ui-button ui-control">delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </article>
-        <article class="text--justified">
-            <header><h2 class="header">Add player</h2></header>
-            <form class="player__form" id="playerForm">
-                <table>
-                    <tr>
-                        <td><label for="name">Name: </label></td>
-                        <td><input class="ui-control ui-input" id="name" name="name"/></td>
-                        <td><input class="ui-control ui-button" type="submit" value="add"/></td>
-                    </tr>
-                </table>
-            </form>
-        </article>
+        <div class="center-div">
+            <div class="players-div">
+                <article class="text--justified">
+                    <header class="header"><h2>Players</h2></header>
+                    <table class="data-table">
+                        <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>delete</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        <tr>
+                            <td>name</td>
+                            <td>
+                                <button class="ui-button ui-control">delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </article>
+                <article class="text--justified">
+                    <header><h2 class="header">Add player</h2></header>
+                    <form class="player__form" id="playerForm">
+                        <table>
+                            <tr>
+                                <td><label for="name">Name: </label></td>
+                                <td><input class="ui-control ui-input" id="name" name="name"/></td>
+                                <td><input class="ui-control ui-button" type="submit" value="add"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </article>
+            </div>
+            <div class="config-div">
+                <article class="text--justified">
+                    <header><h2 class="header">Game configuration:</h2></header>
+                    <form class="player__form" id="turnForm">
+                        <table>
+                            <tr>
+                                <td><label for="turns">Turns: </label></td>
+                                <td><input class="ui-control ui-input" type="number"
+                                           min="5" max="20" id="turns" name="turns" value="10"/></td>
+                            </tr>
+                            <tr>
+                                <td><input class="ui-control ui-button" id="apply" type="submit" value="apply"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </article>
+            </div>
+        </div>
         <div class="start-div">
             <button class="start-button ui-control" id="start">Start Game</button>
         </div>

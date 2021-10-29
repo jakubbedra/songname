@@ -96,13 +96,13 @@ public class GameController {
     }
 
     @PostMapping("/{uuid}/create")
-    public ResponseEntity<Void> createGame(@PathVariable("uuid") String uuid) {
+    public ResponseEntity<Void> createGame(@PathVariable("uuid") String uuid, @RequestParam("turns") String turns) {
         List<Player> players = playersService.getPlayersByGameId(UUID.fromString(uuid));
         if (players.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        List<Song> songs = songsService.getRandomSongs(SONGS_PER_PLAYER * players.size());
-        gameService.createGame(UUID.fromString(uuid), players, songs, SONGS_PER_PLAYER);
+        List<Song> songs = songsService.getRandomSongs(Integer.parseInt(turns) * players.size());
+        gameService.createGame(UUID.fromString(uuid), players, songs, Integer.parseInt(turns));
         return ResponseEntity.ok().build();
     }
 
