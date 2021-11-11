@@ -75,7 +75,7 @@ public class GameController {
     @GetMapping("/{uuid}/results")
     public ResponseEntity<GetPlayersResponse> getResults(@PathVariable("uuid") String uuid) {
         List<Player> players = playersService.getPlayersByGameId(UUID.fromString(uuid)).stream()
-                .sorted(Comparator.comparingInt(Player::getScore))
+                .sorted(Comparator.comparingInt(Player::getScore).reversed())
                 .collect(Collectors.toList());
         return ResponseEntity.ok(
                 new GetPlayersResponse(players)
@@ -102,7 +102,7 @@ public class GameController {
             return ResponseEntity.notFound().build();
         }
         List<Song> songs = songsService.getRandomSongs(Integer.parseInt(turns) * players.size());
-        gameService.createGame(UUID.fromString(uuid), players, songs, Integer.parseInt(turns));
+        gameService.createGame(UUID.fromString(uuid), players, songs, Integer.parseInt(turns) * players.size());
         return ResponseEntity.ok().build();
     }
 
