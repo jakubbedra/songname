@@ -10,11 +10,11 @@ import com.konfyrm.songname.songs.model.Song;
 import com.konfyrm.songname.authors.service.AuthorsService;
 import com.konfyrm.songname.songs.service.SongsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 @Component
@@ -23,20 +23,17 @@ public class DataManager {
     private final SongsService songsService;
     private final AuthorsService authorsService;
 
-    private final String jsonFilesPath;
-    private static final String tmpPath = "./target/classes/json_data/"; //todo: make this shit work correctly xdddd
+    private final String jsonFilesDirectory;
 
     @Autowired
     public DataManager(
             SongsService songsService,
-            AuthorsService authorsService
+            AuthorsService authorsService,
+            @Value("${songname.uploaded.files.dir}") String uploadedFilesDirectory
     ) {
+        this.jsonFilesDirectory = uploadedFilesDirectory + "/json_data/";
         this.songsService = songsService;
         this.authorsService = authorsService;
-        URL res = getClass().getClassLoader().getResource("json_data/");
-//        System.out.println(res.getPath());
-        this.jsonFilesPath = res.getPath();
-//        this.jsonFilesPath = tmpPath;
     }
 
     public void initData() {
@@ -55,9 +52,6 @@ public class DataManager {
         songsService.addSong(song4);
     }
 
-    /*
-    todo: make it pre-destroy and importing post construct
-     */
     public void exportDataToFile() {
         List<Author> authors = authorsService.getAllAuthors();
         List<Song> songs = songsService.getAllSongs();
@@ -66,8 +60,8 @@ public class DataManager {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            mapper.writeValue(new File(jsonFilesPath + "authors.json"), authorsDto);
-            mapper.writeValue(new File(jsonFilesPath + "songs.json"), songsDto);
+            mapper.writeValue(new File(jsonFilesDirectory + "authors.json"), authorsDto);//TODO!!!!!!!
+            mapper.writeValue(new File(jsonFilesDirectory + "songs.json"), songsDto);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,7 +72,7 @@ public class DataManager {
             ObjectMapper mapper = new ObjectMapper();
 
             GetAuthorsFileDto authorsDto = mapper.readValue(
-                    new File(tmpPath + "authors.json"), GetAuthorsFileDto.class
+                    new File(jsonFilesDirectory + "authors.json"), GetAuthorsFileDto.class
             );
             List<Author> authors = new LinkedList<>();
             Map<UUID, Author> authorsMap = new HashMap();
@@ -90,7 +84,7 @@ public class DataManager {
             authors.forEach(authorsService::addAuthor);
 
             GetSongsFileDto songsDto = mapper.readValue(
-                    new File(tmpPath + "songs.json"), GetSongsFileDto.class
+                    new File(jsonFilesDirectory + "songs.json"), GetSongsFileDto.class
             );
             List<Song> songs = new LinkedList<>();
             songsDto.getSongs().forEach(s ->

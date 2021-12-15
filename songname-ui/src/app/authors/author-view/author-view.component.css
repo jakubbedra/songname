@@ -1,0 +1,31 @@
+.details-grid {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 100px 400px;
+}
+
+.details-grid label {
+  color: white;
+}
+
+.details-grid span {
+  color: white;
+}
+
+.data-table img {
+  width: 100px;
+}
+
+.song__form {
+  display: grid;
+  grid-template-columns: 120px 200px;
+  grid-gap: 10px;
+}
+
+.song__form label {
+  color: white;
+}
+
+.song__form input {
+  color: white;
+}

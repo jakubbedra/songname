@@ -1,6 +1,7 @@
 package com.konfyrm.songname.songs.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -12,12 +13,14 @@ import java.util.UUID;
 @Repository
 public class SongFilesRepository {
 
-    private final String basePath;
+    private final String songFilesDirectory;
 
     @Autowired
-    public SongFilesRepository() {
+    public SongFilesRepository(
+            @Value("${songname.uploaded.files.dir}") String uploadedFilesDirectory
+    ) {
         URL res = getClass().getClassLoader().getResource("songs/");
-        this.basePath = res.getPath();
+        this.songFilesDirectory = uploadedFilesDirectory + "/songs/";
     }
 
     /**
@@ -28,7 +31,7 @@ public class SongFilesRepository {
      * @throws FileNotFoundException
      */
     public synchronized FileInputStream getById(UUID uuid) throws FileNotFoundException {
-        File file = new File(basePath + uuid + ".mp3");
+        File file = new File(songFilesDirectory + uuid + ".mp3");
         FileInputStream fileInputStream = new FileInputStream(file);
         return fileInputStream;
     }
@@ -41,7 +44,7 @@ public class SongFilesRepository {
      * @throws IOException
      */
     public synchronized void save(UUID uuid, byte[] file) throws IOException {
-        File outputFile = new File(basePath + uuid + ".mp3");
+        File outputFile = new File(songFilesDirectory + uuid + ".mp3");
         //System.out.println(basePath + uuid + ".mp3");
         try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
             outputStream.write(file);
@@ -58,7 +61,7 @@ public class SongFilesRepository {
      */
     public synchronized void deleteById(UUID uuid) {
         boolean deleted = false;
-        File file = new File(basePath + uuid + ".mp3");
+        File file = new File(songFilesDirectory + uuid + ".mp3");
         file.delete();
     }
 

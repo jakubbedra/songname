@@ -1,0 +1,14 @@
+<section class="main-section">
+  <article class="text--justified">
+    <header><h2 class="header">Edit author info</h2></header>
+    <form class="author__form">
+      <label for="name">Name: </label>
+      <input class="ui-control ui-input" id="name" name="name" #authorName/>
+      <input class="ui-control ui-button"
+             type="submit"
+             (click)="onSaveChanges(authorName.value)"
+             routerLink="/authors"
+             value="save changes"/>
+    </form>
+  </article>
+</section>

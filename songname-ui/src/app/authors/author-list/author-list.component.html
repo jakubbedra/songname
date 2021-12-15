@@ -1,0 +1,28 @@
+<article class="text--justified">
+  <header class="header"><h2>Authors</h2></header>
+  <table class="data-table">
+    <thead>
+    <tr>
+      <th>name</th>
+      <th>view</th>
+      <th>edit</th>
+      <th>delete</th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    <tr *ngFor="let author of authors">
+      <td>{{author.name}}</td>
+      <td>
+        <button class="ui-button ui-control" routerLink="/authors/{{author.uuid}}">view</button>
+      </td>
+      <td>
+        <button class="ui-button ui-control" routerLink="/authors/edit/{{author.uuid}}">edit</button>
+      </td>
+      <td>
+        <button class="ui-button ui-control" (click)="onDeleteAuthor(author.uuid)">delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</article>
+<app-author-add (updateListEvent)="fetchAuthors()"></app-author-add>

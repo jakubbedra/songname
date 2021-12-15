@@ -1,0 +1,14 @@
+<article class="text--justified">
+  <header><h2 class="header">Add author</h2></header>
+  <form class="author__form">
+    <label for="name">Name: </label>
+    <input class="ui-control ui-input" id="name" name="name" #authorName/>
+    <button
+      class="ui-button ui-control"
+      id="addAuthor"
+      (click)="onCreateAuthor(authorName.value)"
+      routerLink="/authors">
+      add
+    </button>
+  </form>
+</article>

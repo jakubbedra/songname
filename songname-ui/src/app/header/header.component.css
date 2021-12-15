@@ -1,0 +1,29 @@
+.navigation-bar {
+  background-color: #222222;
+}
+
+.navigation-bar ul {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  list-style-type: none;
+}
+
+.navigation-bar li {
+  display: inline-block;
+}
+
+.navigation-bar a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  color: white;
+}
+
+.navigation-bar a:hover {
+  background-color: #330099;
+  color: white;
+}
