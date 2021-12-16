@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { AuthorViewComponent } from './authors/author-view/author-view.component';
 import { AuthorEditComponent } from './authors/author-edit/author-edit.component';
 import { SongListComponent } from './songs/song-list/song-list.component';
+import {SongsService} from "./songs/songs.service";
+import { SongAddComponent } from './songs/song-add/song-add.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,17 @@ import { SongListComponent } from './songs/song-list/song-list.component';
     AuthorViewComponent,
     AuthorEditComponent,
     SongListComponent,
+    SongAddComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuthorsService],
+  providers: [
+    AuthorsService,
+    SongsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,6 +1,5 @@
 package com.konfyrm.songname.authors.resource;
 
-import com.konfyrm.songname.config.DataManager;
 import com.konfyrm.songname.authors.dto.*;
 import com.konfyrm.songname.authors.model.Author;
 import com.konfyrm.songname.songs.dto.GetSongsResponse;
@@ -26,7 +25,6 @@ public class AuthorsResource {
 
     @Autowired
     public AuthorsResource(
-            DataManager dataManager,
             AuthorsService authorsService,
             SongsService songsService
     ) {

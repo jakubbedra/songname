@@ -2,12 +2,12 @@ import {Author} from "../authors/author.model";
 
 export class Song {
   public uuid: string;
-  public name: string;
-  public authors: Author[];
+  public title: string;
+  //public authors: Author[];
 
-  constructor(uuid: string, name: string, authors: Author[]) {
+  constructor(uuid: string, title: string, /*authors: Author[]*/) {
     this.uuid = uuid;
-    this.name = name;
-    this.authors = authors;
+    this.title = title;
+    //this.authors = authors;
   }
 }

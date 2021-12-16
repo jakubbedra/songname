@@ -33,6 +33,7 @@ function createSongAction(event) {
         'authorUuid': getParameterByName('author')
     })], {type: "application/json"}));
     console.log('dupa\n' + document.getElementById('file').files[0].name);
+    console.log(request);
     xhttp.send(request);
     event.target.reset();
 }

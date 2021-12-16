@@ -8,4 +8,5 @@
     </div>
   </section>
 </article>
-<app-song-list></app-song-list>
+<app-song-list #songList></app-song-list>
+<app-song-add (updateSongsListEvent)="songList.fetchSongs()"></app-song-add>

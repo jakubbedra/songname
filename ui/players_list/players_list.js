@@ -66,7 +66,7 @@ function createPlayerAction(event) {
         'name': document.getElementById('name').value
     };
 
-    console.log(request);
+//    console.log(request);
 
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send(JSON.stringify(request));

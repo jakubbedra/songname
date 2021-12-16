@@ -25,7 +25,7 @@ export class AuthorListComponent implements OnInit {
   }
 
   onDeleteAuthor(uuid: string) {
-    this.authorsService.deleteAuthor(uuid).subscribe(authors => {
+    this.authorsService.deleteAuthor(uuid).subscribe(response => {
       this.fetchAuthors();
     });
   }

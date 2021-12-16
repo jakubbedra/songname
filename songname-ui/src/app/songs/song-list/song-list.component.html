@@ -12,13 +12,17 @@
       </tr>
       </thead>
       <tbody id="tableBody">
-      <tr>
-        <td>title</td>
-        <td><a href="#">view</a></td>
-        <td><a href="#">edit</a></td>
-        <td><a href="">play</a></td>
+      <tr *ngFor="let song of songs">
+        <td>{{song.uuid}}</td>
+        <td>{{song.title}}</td>
         <td>
-          <button class="ui-button ui-control">delete</button>
+          <button class="ui-button ui-control" routerLink="">edit</button>
+        </td>
+        <td>
+          <button class="ui-button ui-control" (click)="onPlaySong(song.uuid)">play</button>
+        </td>
+        <td>
+          <button class="ui-button ui-control" (click)="onDeleteSong(song.uuid)">delete</button>
         </td>
       </tr>
       </tbody>

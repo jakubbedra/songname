@@ -1,0 +1,22 @@
+<article class="text--justified">
+  <header><h2 class="header">Add song</h2></header>
+  <div class="song__form" id="songForm">
+    <label for="title">Title: </label>
+    <input class="ui-control ui-input" id="title" name="title" #title/>
+    <label for="file">File: </label>
+    <input
+      class="ui-control ui-button"
+      id="file"
+      name="file"
+      type="file"
+      (change)="onSelectFile($event)"
+    />
+    <button
+      class="ui-button ui-control"
+      id="addSong"
+      (click)="onCreateSong(title.value)"
+      routerLink="/authors">
+      upload
+    </button>
+  </div>
+</article>
